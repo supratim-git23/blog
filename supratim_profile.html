@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Supratim Chakraborty — Professional Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F6F3;
+    --panel:#101B22;
+    --panel-2:#16242D;
+    --ink:#16232A;
+    --ink-soft:#4B5A62;
+    --accent:#2C6E64;
+    --accent-soft:#DCE9E6;
+    --line:#D8D9D3;
+    --paper:#FFFFFF;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'IBM Plex Sans',sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:var(--accent);}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- HERO : query-result motif ---------- */
+  header.hero{
+    background:var(--panel);
+    color:#EAEFEE;
+    padding:56px 0 0 0;
+  }
+  .hero-inner{max-width:1120px;margin:0 auto;padding:0 32px 40px;}
+  .query-line{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:#7FBBAE;
+    letter-spacing:.02em;
+    margin-bottom:22px;
+    opacity:.9;
+  }
+  .query-line .kw{color:#E8A857;}
+  .hero-name{
+    font-family:'Source Serif 4',serif;
+    font-weight:700;
+    font-size:clamp(34px,5vw,54px);
+    margin:0 0 6px 0;
+    letter-spacing:-0.01em;
+  }
+  .hero-role{
+    font-size:17px;
+    color:#B9C6C3;
+    margin:0 0 28px 0;
+    font-weight:400;
+  }
+  .result-table{
+    width:100%;
+    border-collapse:collapse;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    background:var(--panel-2);
+    border:1px solid #26363F;
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .result-table th,
+  .result-table td{
+    text-align:left;
+    padding:12px 16px;
+    border-bottom:1px solid #26363F;
+    vertical-align:top;
+  }
+  .result-table tr:last-child th,
+  .result-table tr:last-child td{border-bottom:none;}
+  .result-table th{
+    color:#6C9E93;
+    font-weight:500;
+    width:190px;
+    white-space:nowrap;
+  }
+  .result-table td{color:#E4E9E8;}
+
+  .hero-top{
+    display:flex;
+    align-items:center;
+    gap:28px;
+    margin-bottom:8px;
+  }
+  .hero-photo{
+    width:104px;
+    height:104px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid var(--accent);
+    box-shadow:0 0 0 5px rgba(44,110,100,0.18);
+    flex-shrink:0;
+  }
+  .hero-text{min-width:0;}
+
+  /* credential badge in sidebar */
+  .credential-badge{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:14px 14px 12px;
+  }
+  .credential-badge img{
+    width:100%;
+    height:auto;
+    display:block;
+  }
+  .credential-caption{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-top:8px;
+    text-align:center;
+    letter-spacing:.02em;
+  }
+
+  /* certificate showcase */
+  .cert-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+  }
+  .cert-card img{
+    width:100%;
+    height:auto;
+    display:block;
+    border-bottom:1px solid var(--line);
+  }
+  .cert-caption{
+    padding:14px 18px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+  }
+  .cert-caption strong{color:var(--ink);font-weight:600;}
+
+  /* ---------- LAYOUT ---------- */
+  main{
+    display:grid;
+    grid-template-columns:280px 1fr;
+    gap:0;
+    max-width:1120px;
+    margin:0 auto;
+    align-items:start;
+  }
+  aside{
+    background:var(--paper);
+    border-right:1px solid var(--line);
+    padding:40px 28px 60px;
+    position:sticky;
+    top:0;
+    align-self:start;
+  }
+  .content{padding:40px 32px 80px 40px;}
+
+  .side-block{margin-bottom:34px;}
+  .side-block:last-child{margin-bottom:0;}
+  .side-label{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--accent);
+    margin-bottom:12px;
+    padding-bottom:6px;
+    border-bottom:1px solid var(--line);
+  }
+  .side-block p{margin:0 0 4px 0;font-size:14px;color:var(--ink-soft);}
+  .side-block a{word-break:break-all;font-size:13.5px;}
+
+  .tag-list{display:flex;flex-wrap:wrap;gap:6px;}
+  .tag{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    padding:4px 9px;
+    background:var(--accent-soft);
+    color:var(--accent);
+    border-radius:3px;
+    white-space:nowrap;
+  }
+
+  .contact-item{font-size:13.5px;margin-bottom:6px;color:var(--ink-soft);}
+  .contact-item strong{color:var(--ink);font-weight:500;}
+
+  /* ---------- CONTENT SECTIONS ---------- */
+  section{margin-bottom:46px;}
+  section:last-child{margin-bottom:0;}
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--accent);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:14px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:18px;height:2px;
+    background:var(--accent);
+    display:inline-block;
+  }
+  h2.section-title{
+    font-family:'Source Serif 4',serif;
+    font-weight:600;
+    font-size:23px;
+    margin:0 0 16px 0;
+    color:var(--ink);
+  }
+  section > p{font-size:15px;color:var(--ink-soft);margin:0 0 12px 0;}
+
+  /* qualification / accomplishment rows */
+  .rec-row{
+    display:grid;
+    grid-template-columns:96px 1fr;
+    gap:18px;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14.5px;
+  }
+  .rec-row:last-child{border-bottom:none;}
+  .rec-year{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:13px;
+    color:var(--accent);
+    padding-top:1px;
+  }
+  .rec-detail strong{font-weight:600;color:var(--ink);}
+  .rec-detail span{display:block;color:var(--ink-soft);font-size:13.5px;margin-top:2px;}
+
+  .subhead{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:12px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin:22px 0 10px 0;
+  }
+
+  ul.plain{margin:0;padding-left:18px;}
+  ul.plain li{font-size:14.5px;color:var(--ink-soft);margin-bottom:8px;}
+  ul.plain li strong{color:var(--ink);font-weight:500;}
+
+  .job-card{
+    background:var(--paper);
+    border:1px solid var(--line);
+    border-left:3px solid var(--accent);
+    border-radius:4px;
+    padding:20px 22px;
+  }
+  .job-card .role{font-weight:600;font-size:16px;color:var(--ink);margin-bottom:3px;}
+  .job-card .org{font-size:14px;color:var(--accent);margin-bottom:10px;}
+  .job-card .meta{font-size:13.5px;color:var(--ink-soft);}
+  .job-card .meta div{margin-bottom:3px;}
+
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+
+  footer{
+    text-align:center;
+    font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    padding:28px 0 40px;
+    border-top:1px solid var(--line);
+    margin-top:0;
+  }
+
+  @media (max-width:820px){
+    main{grid-template-columns:1fr;}
+    aside{position:static;border-right:none;border-bottom:1px solid var(--line);}
+    .grid-2{grid-template-columns:1fr;}
+    .result-table th{width:130px;}
+  }
+  @media (max-width:480px){
+    .hero-top{flex-direction:column;align-items:flex-start;gap:16px;}
+  }
+
+  :focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="hero-inner">
+      <div class="hero-top">
+      <img src="self.jpg" alt="Photo of Supratim Chakraborty" class="hero-photo">
+      <div class="hero-text">
+        <h1 class="hero-name">Supratim Chakraborty</h1>
+        <p class="hero-role">MCA &nbsp;·&nbsp; OCA DBA &nbsp;·&nbsp; MIS-In-Charge, Samagra Shiksha Mission, Kolkata</p>
+      </div>
+    </div>
+
+    <table class="result-table">
+      <tr><th>Experience</th><td>22+ years — Oracle 11g, MIS &amp; Data Analysis</td></tr>
+      <tr><th>Current role</th><td>MIS-In-Charge, SSM Kolkata (State &amp; Central Govt. joint project)</td></tr>
+      <tr><th>Core skills</th><td>Oracle 11g · PL/SQL · Oracle APEX · DBA · Data Analysis &amp; Visualization</td></tr>
+      <tr><th>Also teaches</th><td>Artificial Intelligence · Cybersecurity · Data Science</td></tr>
+    </table>
+  </div>
+</header>
+
+<main>
+  <aside>
+    <div class="side-block">
+      <div class="side-label">Contact</div>
+      <p class="contact-item"><strong>Email:</strong><br><a href="mailto:supratimmis@gmail.com">supratimmis@gmail.com</a></p>
+      <p class="contact-item"><a href="mailto:supratim610@gmail.com">supratim610@gmail.com</a></p>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Links</div>
+      <p class="contact-item"><strong>Blog:</strong><br><a href="https://supratim-git23.github.io/" target="_blank" rel="noopener">supratim-git23.github.io</a></p>
+      <p class="contact-item"><strong>YouTube:</strong><br><a href="https://www.youtube.com/@learnwithjoy2985" target="_blank" rel="noopener">@learnwithjoy2985</a></p>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Credential</div>
+      <div class="credential-badge">
+        <img src="oca.png" alt="Oracle Certified Associate logo">
+        <div class="credential-caption">OCA DBA · Oracle University · 2009</div>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Personal Details</div>
+      <p class="contact-item"><strong>University for UG:</strong> Calcutta University, Kolkata</p>
+      <p class="contact-item"><strong>University for PG:</strong> Vidyasagar University, Medinipore</p>
+      <p class="contact-item"><strong>PG-Final Year Project:</strong> Indian Statistical Institute, Kolkata</p>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Languages</div>
+      <div class="tag-list">
+        <span class="tag">SQL</span><span class="tag">PL/SQL</span><span class="tag">HTML,CSS</span>
+        <span class="tag">C</span><span class="tag">C++</span><span class="tag">Java</span>
+        <span class="tag">Python</span><span class="tag">PHP</span>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Databases</div>
+      <div class="tag-list">
+        <span class="tag">Oracle 11g</span><span class="tag">SQLite3</span>
+        <span class="tag">MySQL</span><span class="tag">MS Access 2007/10</span>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Platforms</div>
+      <div class="tag-list">
+        <span class="tag">Windows Server 2012</span><span class="tag">Windows 11</span>
+        <span class="tag">Ubuntu 22.04.3</span>
+      </div>
+    </div>
+
+    <div class="side-block">
+      <div class="side-label">Tools</div>
+      <div class="tag-list">
+        <span class="tag">Oracle SQL Developer</span><span class="tag">Oracle APEX</span>
+        <span class="tag">WordPress</span><span class="tag">CSS</span><span class="tag">BlueJ</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="content">
+
+    <section>
+      <div class="eyebrow">Professional Profile</div>
+      <p>Supratim, an MCA and OCA DBA, brings over 22 years of experience in Oracle 11g, MIS, and data analysis. He currently serves as MIS-In-Charge at Samagra Shiksha Mission (SSM), Kolkata, where his work spans Oracle DBA administration, PL/SQL and software development, website development, and the generation of all types of MIS reports.</p>
+      <p>His core competency lies in Oracle technologies (Oracle 11g, PL/SQL, DBA, and APEX), data analysis, and data visualization. He also serves as a training expert at SSM and has recently taken up teaching Artificial Intelligence, Cybersecurity, and Data Science — including conducting seminars on AI and Cybersecurity.</p>
+    </section>
+
+    <section>
+      <div class="eyebrow">Professional Qualifications</div>
+      <div class="rec-row">
+        <div class="rec-year">2003</div>
+        <div class="rec-detail"><strong>MCA</strong> —  Vidyasagar University, West Bengal <span>Regular course</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2009</div>
+        <div class="rec-detail"><strong>OCA DBA</strong> —  Oracle University <span>Online exam</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2020</div>
+        <div class="rec-detail"><strong>ARPIT, SWAYAM Course</strong> — Data Analysis for Social Science Teachers,  University of Hyderabad <span>Online CBT exam</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Recent Accomplishments</div>
+      <div class="subhead">Online Courses</div>
+      <div class="rec-row">
+        <div class="rec-year">2026</div>
+        <div class="rec-detail"><strong>CS50's Introduction to Artificial Intelligence with Python</strong> <span>Harvard University</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2024</div>
+        <div class="rec-detail"><strong>CS50's Introduction to Cybersecurity</strong> <span>Harvard University</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2024</div>
+        <div class="rec-detail"><strong>Ethical Hacking Essentials (EHE)</strong> <span>EC-Council</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2024</div>
+        <div class="rec-detail"><strong>Digital Forensics Essentials (DFE)</strong> <span>EC-Council</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2020</div>
+        <div class="rec-detail"><strong>Introduction to Soft Computing</strong> <span>SWAYAM, NPTEL, IIT Kharagpur</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2020</div>
+        <div class="rec-detail"><strong>Cloud Computing</strong> <span>SWAYAM, NPTEL, IIT Kharagpur</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2020</div>
+        <div class="rec-detail"><strong>Machine Learning</strong> <span>Tata Steel</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2020</div>
+        <div class="rec-detail"><strong>Basic TQM</strong> <span>Tata Steel</span></div>
+      </div>
+      <div class="rec-row">
+        <div class="rec-year">2020</div>
+        <div class="rec-detail"><strong>Industry 4.0</strong> <span>Tata Steel</span></div>
+      </div>
+
+      <div class="subhead">Certificate</div>
+      <div class="cert-card">
+        <img src="cs50ai.png" alt="CS50's Introduction to Artificial Intelligence with Python certificate, awarded to Supratim Chakraborty by Harvard University">
+        <div class="cert-caption"><strong>CS50's Introduction to Artificial Intelligence with Python</strong> — Harvard University, 2026</div>
+      </div>
+
+      <div class="subhead">Published Books</div>
+      <ul class="plain">
+        <li><strong>Artificial Intelligence and Data Science (AIDS)</strong> for Higher Secondary, WBCHSE, RSP</li>
+        <li><strong>Computer Application in a Nutshell, Vol. 1</strong> — April 2020, Amazon (Kindle &amp; Paperback)</li>
+        <li><strong>Object Oriented Programming (OOP) Tutorial, Vol. 1: Basics</strong> [Java and BlueJ] — 2020, Amazon (Kindle)</li>
+        <li><strong>Learn HTML and CSS: Web Page Design</strong> — June 2021</li>
+        
+      </ul>
+    </section>
+
+    <section>
+      <div class="eyebrow">Selected Work</div>
+      <ul class="plain">
+        <li><strong>Website Development for SSM Kolkata</strong> — Role: DBA and programming</li>
+        <li><strong>Civil Works Software Development</strong> — Role: Programmer (database and front end)</li>
+        <li><strong>Oracle upgrade</strong> — Installation and upgradation of Oracle 11g from 9i</li>
+        <li><strong>Oracle 11g Express Edition</strong> — Installed on Ubuntu Linux</li>
+        <li><strong>Research study</strong> — Impact of ICT in Education (data analysis)</li>
+        <li><strong>Cyber Security Guideline</strong> — Prepared for students and teachers</li>
+        <li><strong>Research paper on Quality Education</strong> — Published on udise.in by NUEPA, New Delhi</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="eyebrow">Soft Skills</div>
+      <ul class="plain">
+        <li>Leads and motivates the MIS team as MIS-In-Charge</li>
+        <li>Coordinates workshops for Information Acquisition and CAL (Computer Aided Learning) teacher training</li>
+        <li>Regular participant in national-level workshops on DBMS, MIS, CAL, and research activity</li>
+        <li>Uses GIS software to map schools, wards, and boroughs across Kolkata</li>
+      </ul>
+    </section>
+
+    <section>
+      <div class="eyebrow">Experience</div>
+      <div class="job-card">
+        <div class="role">MIS-In-Charge</div>
+        <div class="org">Samagra Shiksha Mission, Kolkata — 27A Bosepukur Road, Kasba, Kolkata-42</div>
+        <div class="meta">
+          <div><strong>Duration:</strong> June 2004 – Present</div>
+          <div><strong>Responsibilities:</strong> Oracle 11g DBA, software development, MIS reporting, and related duties</div>
+        </div>
+      </div>
+
+      <div class="subhead">MCA Final Semester Project</div>
+      <p><strong>Recognition of Composite Objects Using Mathematical Simulation and Reconstruction with Data Compression</strong><br>
+      Venue: E.C.S.U., Indian Statistical Institute, Kolkata &nbsp;·&nbsp; Language: C &nbsp;·&nbsp; OS: Windows Me &nbsp;·&nbsp; Duration: 6 months</p>
+    </section>
+
+    <section>
+      <div class="eyebrow">Educational Details</div>
+      <div class="grid-2">
+        <div>
+          <div class="subhead">Professional Qualifications</div>
+          <ul class="plain">
+            <li>ARPIT SWAYAM Course (2020) — Data Analysis for Social Science Teachers, University of Hyderabad</li>
+            <li>OCA DBA (2009) —  Oracle University</li>
+            <li>MCA, First Class (2003) —  Vidyasagar University (Regular)</li>
+          </ul>
+        </div>
+        <div>
+          <div class="subhead">Academic Qualifications</div>
+          <ul class="plain">
+            <li>B.Sc. Mathematics (Honours), with Economics and Statistics — University of Calcutta, 1999</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="eyebrow">Co-Curricular</div>
+      <ul class="plain">
+        <li>Certificate for a 3-day training programme (12–14 February 2008) on SSM planning process, conducted by the National Institute of Administrative Research, LBSNAA, Mussoorie, sponsored by MHRD, Government of India</li>
+        <li>Third place, open-stage quiz contest, Kalikapur, Paschim Medinipur, 2003</li>
+        <li>Writes Bengali poetry; poems published in Nabankur, Dinkshan, and Nandam magazines, Kolkata</li>
+        <li>Author of the poetry collection <em>Bristi Namuk Tarpor</em>, published by Ramkrishna Sarada Publication, Kolkata</li>
+        <li>Participation certificate, Tally (India) Pvt. Ltd.</li>
+        <li>Participation certificate, NUEPA (jointly organised by UNICEF, National University of Educational Planning and Administration, and SSA)</li>
+        <li>Course completion certificate — Oracle 9i DBA, SQLSTAR</li>
+        <li>Participation certificate — Cyber Wellness Olympiad, 2018–19</li>
+        <li><a href="https://www.youtube.com/@learnwithjoy2985" target="_blank" rel="noopener"><strong>LearnWithJoy</strong></a> YouTube Channel — video lectures on Computational Mathematics (Optimization), Statistical Data Analysis, OOP with Java &amp; BlueJ, and MS Office in Bengali</li>
+      </ul>
+    </section>
+
+  </div>
+</main>
+
+<footer>supratim chakraborty — profile last updated 2026</footer>
+
+</body>
+</html>
