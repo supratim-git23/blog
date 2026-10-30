@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Class 10 AI - Convolutional Neural Networks (CNN) Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+    <!-- Header Banner -->
+    <header class="bg-gradient-to-r from-teal-900 via-emerald-800 to-slate-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+                    <i class="fa-solid fa-eye text-2xl text-emerald-300"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight leading-snug">CBSE Class 10 AI (Code 417)</h1>
+                    <p class="text-xs text-emerald-200 font-medium">Computer Vision & Convolutional Neural Networks (CNN)</p>
+                </div>
+            </div>
+
+            <!-- Quiz Timer & Status Display -->
+            <div id="header-stats" class="hidden flex items-center gap-3 ml-auto">
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-regular fa-clock text-amber-300"></i>
+                    <span id="timer-display" class="font-mono font-bold tracking-wider text-amber-100">00:00</span>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-300"></i>
+                    <span id="progress-text" class="font-semibold">0/20</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 flex-grow w-full">
+
+        <!-- ================= 1. START SCREEN ================= -->
+        <section id="start-screen" class="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-10 max-w-2xl mx-auto text-center space-y-6">
+            <div class="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto text-emerald-600 text-3xl shadow-inner border border-emerald-100">
+                <i class="fa-solid fa-network-wired"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">CNN & Computer Vision Practice Quiz</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Test your understanding of Convolutional Neural Networks (CNN) for CBSE Class 10 Artificial Intelligence. Topics include pixels, kernels, stride, pooling, feature maps, and dense layers.
+                </p>
+            </div>
+
+            <!-- Stats Overview Card -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-left bg-slate-50 p-4 rounded-xl border border-slate-200/80 text-xs sm:text-sm">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-circle-question text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">20 MCQs</div>
+                        <div class="text-slate-500 text-[11px]">Multiple Choice</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-stopwatch text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">Untimed</div>
+                        <div class="text-slate-500 text-[11px]">Tracked Duration</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-bookmark text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">CBSE Syllabus</div>
+                        <div class="text-slate-500 text-[11px]">Code 417 Aligned</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Feedback Mode Selector -->
+            <div class="text-left space-y-2 pt-1">
+                <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Mode:</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <label id="mode-exam-label" class="cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600">
+                        <input type="radio" name="quiz-mode" value="exam" checked class="mt-1 accent-emerald-600">
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Standard Exam Mode</div>
+                            <p class="text-xs text-slate-500 mt-0.5">Simulate exam conditions. Answer all questions and submit to unlock score and solutions.</p>
+                        </div>
+                    </label>
+
+                    <label id="mode-instant-label" class="cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300">
+                        <input type="radio" name="quiz-mode" value="instant" class="mt-1 accent-emerald-600">
+                        <div>
+                            <div class="font-bold text-sm text-slate-900">Instant Practice Mode</div>
+                            <p class="text-xs text-slate-500 mt-0.5">Get immediate feedback and explanations after selecting each answer.</p>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <button id="start-btn" class="w-full py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition duration-200 flex items-center justify-center gap-2 text-base">
+                <span>Start Quiz Now</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- ================= 2. QUIZ INTERFACE SCREEN ================= -->
+        <section id="quiz-screen" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Main Question Area (Left - 3 columns) -->
+            <div class="lg:col-span-3 space-y-4">
+
+                <!-- Progress Header Bar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                        <span id="q-progress-count">Question 1 of 20</span>
+                        <span id="q-progress-percent" class="text-emerald-600">5% Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-emerald-600 h-full w-[5%] transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Main Question Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                    
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <span id="question-number-badge" class="bg-emerald-100 text-emerald-800 font-bold text-xs sm:text-sm px-3 py-1 rounded-lg shrink-0 mt-0.5">
+                                Q1
+                            </span>
+                            <h2 id="question-text" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                                Question text loading...
+                            </h2>
+                        </div>
+                        
+                        <!-- Flag for Review Button -->
+                        <button id="flag-btn" class="shrink-0 text-slate-400 hover:text-purple-600 bg-slate-50 hover:bg-purple-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium" title="Flag this question to review later">
+                            <i class="fa-regular fa-bookmark text-sm" id="flag-icon"></i>
+                            <span class="hidden sm:inline" id="flag-text">Mark</span>
+                        </button>
+                    </div>
+
+                    <!-- Multiple Choice Options -->
+                    <div id="options-container" class="space-y-3">
+                        <!-- Options injected dynamically -->
+                    </div>
+
+                    <!-- Instant Feedback Explanation Box -->
+                    <div id="explanation-box" class="hidden rounded-xl p-4 border text-sm space-y-1.5">
+                        <div class="flex items-center gap-2 font-bold" id="feedback-title"></div>
+                        <p id="feedback-explanation" class="text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                </div>
+
+                <!-- Footer Action Buttons -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <button id="prev-btn" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-sm transition shadow-sm flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <span>Previous</span>
+                    </button>
+
+                    <div class="flex items-center gap-2 ml-auto">
+                        <button id="next-btn" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-500/20 flex items-center gap-2">
+                            <span>Next</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <button id="submit-quiz-btn" class="px-5 py-2.5 bg-teal-700 hover:bg-teal-800 text-white font-bold rounded-xl text-sm transition shadow-md shadow-teal-700/20 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Submit Quiz</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Question Palette Sidebar (Right - 1 column) -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 sticky top-20 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-border-all text-emerald-600"></i>
+                            Question Palette
+                        </h3>
+                        <span id="answered-count-badge" class="text-xs bg-slate-100 font-semibold text-slate-600 px-2 py-0.5 rounded-full">
+                            0/20
+                        </span>
+                    </div>
+
+                    <!-- Question Number Buttons 1 to 20 -->
+                    <div id="palette-grid" class="grid grid-cols-5 gap-2 max-h-60 lg:max-h-none overflow-y-auto custom-scrollbar p-0.5">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Palette Legend -->
+                    <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-medium">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-emerald-500 border border-emerald-600 inline-block"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-amber-400 border border-amber-500 inline-block"></span>
+                            <span>Unanswered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-purple-500 border border-purple-600 inline-block"></span>
+                            <span>Flagged</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-slate-200 border border-slate-300 inline-block"></span>
+                            <span>Not Visited</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= 3. FINAL RESULTS SCREEN ================= -->
+        <section id="results-screen" class="hidden space-y-8 max-w-4xl mx-auto">
+            
+            <!-- Summary Banner -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-teal-600 via-emerald-500 to-indigo-500"></div>
+
+                <div class="space-y-1 pt-2">
+                    <span class="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">Assessment Complete</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Your CNN Performance Report</h2>
+                </div>
+
+                <!-- Metric Cards Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 max-w-3xl mx-auto">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Total Score</span>
+                        <div class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                            <span id="final-score">0</span> <span class="text-sm text-slate-400 font-normal">/ 20</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Percentage</span>
+                        <div id="final-percentage" class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Accuracy</span>
+                        <div id="final-accuracy" class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Time Spent</span>
+                        <div id="final-time" class="text-xl sm:text-2xl font-black text-slate-800 mt-1.5 font-mono">
+                            00:00
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breakdown Counts -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-bold pt-1">
+                    <div class="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Correct: <span id="count-correct">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Incorrect: <span id="count-incorrect">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
+                        <i class="fa-solid fa-circle-minus"></i>
+                        <span>Unattempted: <span id="count-unattempted">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Grade Badge -->
+                <div id="remark-badge-container" class="pt-1">
+                    <span id="final-remark" class="inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        Grade: Performance Remark
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-3 pt-2">
+                    <button id="restart-btn" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Retake / Restart Quiz</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Solutions & Review Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-extrabold text-slate-900">Question-by-Question Solution Review</h3>
+                        <p class="text-xs text-slate-500">Examine answers, option details, and underlying Computer Vision / CNN concepts.</p>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold" id="review-filters">
+                        <button data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition">All (20)</button>
+                        <button data-filter="correct" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Correct</button>
+                        <button data-filter="incorrect" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Incorrect</button>
+                        <button data-filter="unattempted" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Unattempted</button>
+                    </div>
+                </div>
+
+                <!-- Review Items Container -->
+                <div id="review-list" class="space-y-4">
+                    <!-- Dynamic review cards injected here -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= SUBMIT CONFIRMATION MODAL ================= -->
+    <div id="submit-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 space-y-5">
+            <div class="flex items-center gap-3 text-amber-600">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-extrabold text-slate-900">Submit Quiz Confirmation</h3>
+                    <p class="text-xs text-slate-500">Please confirm before finalizing your submission.</p>
+                </div>
+            </div>
+
+            <div id="modal-summary-text" class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                <!-- Summary text injected dynamically -->
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button id="modal-cancel-btn" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition">
+                    Continue Quiz
+                </button>
+                <button id="modal-confirm-btn" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-600/20">
+                    Yes, Submit Final
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-6">
+        <div class="max-w-6xl mx-auto px-4">
+            CBSE Class 10 Artificial Intelligence • Computer Vision & CNN Module (Code 417)
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        // -------------------------------------------------------------
+        // 20 CBSE CLASS 10 AI CNN QUESTIONS & EXPLANATIONS
+        // -------------------------------------------------------------
+        const quizData = [
+            {
+                id: 1,
+                question: "What does CNN stand for in Artificial Intelligence and Computer Vision?",
+                options: [
+                    "Central Neural Network",
+                    "Convolutional Neural Network",
+                    "Computer Network Node",
+                    "Combined Neural Navigation"
+                ],
+                correct: 1,
+                explanation: "CNN stands for Convolutional Neural Network. It is a class of deep learning networks designed specifically for processing structured grid data like visual images."
+            },
+            {
+                id: 2,
+                question: "In digital image processing, what is a 'pixel'?",
+                options: [
+                    "A type of physical screen wire",
+                    "The smallest single picture element or unit of a digital image",
+                    "A mathematical formula for compression",
+                    "A wireless signal transmission rate"
+                ],
+                correct: 1,
+                explanation: "A pixel (picture element) is the smallest controllable unit of a digital image displayed on a screen, represented by numerical values."
+            },
+            {
+                id: 3,
+                question: "How is a standard 8-bit Grayscale image represented inside a computer?",
+                options: [
+                    "A 1D array of letters",
+                    "A 2D matrix of numbers ranging from 0 (black) to 255 (white)",
+                    "A 3D matrix with red, green, blue channels",
+                    "A list of vector coordinates"
+                ],
+                correct: 1,
+                explanation: "Grayscale images are represented as 2D matrices where each pixel value ranges from 0 (completely black) to 255 (completely white)."
+            },
+            {
+                id: 4,
+                question: "How many color channels does a standard RGB digital image contain?",
+                options: [
+                    "1 Channel",
+                    "2 Channels",
+                    "3 Channels (Red, Green, Blue)",
+                    "4 Channels"
+                ],
+                correct: 2,
+                explanation: "RGB images consist of 3 color channels corresponding to Red, Green, and Blue intensity layers combined together."
+            },
+            {
+                id: 5,
+                question: "In a CNN, what is the primary role of a 'Kernel' or 'Filter'?",
+                options: [
+                    "To erase duplicate files from memory",
+                    "A small matrix that slides over the input image to extract key visual features (e.g. edges, curves)",
+                    "To output the final text label directly",
+                    "To compress the screen display resolution"
+                ],
+                correct: 1,
+                explanation: "A kernel/filter is a small matrix of weights (e.g., 3x3) that slides over the image during convolution to detect features like edges, corners, and textures."
+            },
+            {
+                id: 6,
+                question: "What is the mathematical operation performed between a Kernel and an Image patch during convolution?",
+                options: [
+                    "Element-wise multiplication followed by summation",
+                    "Simple long division",
+                    "Square root of pixel averages",
+                    "Random number generation"
+                ],
+                correct: 0,
+                explanation: "Convolution calculates the dot product (element-wise multiplication and sum) between kernel weights and overlapping pixel values."
+            },
+            {
+                id: 7,
+                question: "What is the resulting output grid called after a filter is convolved across an input image?",
+                options: [
+                    "Feature Map",
+                    "Pixel Density Graph",
+                    "Vector Space",
+                    "Binary Array"
+                ],
+                correct: 0,
+                explanation: "The output matrix produced after sliding a filter over an image is called a Feature Map (or Activation Map)."
+            },
+            {
+                id: 8,
+                question: "In CNN convolution, what does 'Stride' refer to?",
+                options: [
+                    "The width of the physical monitor",
+                    "The number of pixels by which the kernel slides/shifts across the input matrix at each step",
+                    "The number of color channels in the image",
+                    "The speed of the network training phase"
+                ],
+                correct: 1,
+                explanation: "Stride is the step size or number of pixels the sliding filter moves horizontally and vertically across the input image."
+            },
+            {
+                id: 9,
+                question: "If a stride of 1 moves the kernel by 1 pixel at a time, what does a stride of 2 do?",
+                options: [
+                    "Moves the kernel backward by 2 pixels",
+                    "Shifts the filter 2 pixels at a time, reducing output feature map dimensions",
+                    "Doubles the image pixel brightness",
+                    "Halves the total number of layers"
+                ],
+                correct: 1,
+                explanation: "A larger stride (e.g., stride=2) skips pixels during sliding, resulting in a smaller feature map size."
+            },
+            {
+                id: 10,
+                question: "Why is 'Padding' (e.g., Zero-Padding) applied around the border of an input image before convolution?",
+                options: [
+                    "To hide secret data in the border",
+                    "To preserve original spatial dimensions and prevent losing border pixel information",
+                    "To make the image look colorful",
+                    "To reduce computational processing speed"
+                ],
+                correct: 1,
+                explanation: "Without padding, outer edge pixels are involved in fewer convolutions than center pixels, causing feature maps to shrink continuously. Padding adds extra rows/columns of zeros to preserve dimensions."
+            },
+            {
+                id: 11,
+                question: "What is the primary purpose of a 'Pooling Layer' in a CNN?",
+                options: [
+                    "To add more color channels to the image",
+                    "To downsample/reduce the spatial dimensions of feature maps, reducing memory and computation",
+                    "To generate random images",
+                    "To convert images into audio files"
+                ],
+                correct: 1,
+                explanation: "Pooling reduces spatial resolution (height and width) of feature maps while retaining dominant features, preventing overfitting and saving memory."
+            },
+            {
+                id: 12,
+                question: "Which type of pooling selects the MAXIMUM value from each region of the feature map matrix?",
+                options: [
+                    "Average Pooling",
+                    "Max Pooling",
+                    "Min Pooling",
+                    "Sum Pooling"
+                ],
+                correct: 1,
+                explanation: "Max Pooling extracts the maximum pixel value from each pooling region, capturing the most prominent detected feature."
+            },
+            {
+                id: 13,
+                question: "If a 2x2 Max Pooling window is applied to the region [[1, 5], [3, 8]], what will be the output value?",
+                options: [
+                    "1",
+                    "5",
+                    "8",
+                    "17"
+                ],
+                correct: 2,
+                explanation: "Max pooling picks the highest value in the region. The maximum value among 1, 5, 3, and 8 is 8."
+            },
+            {
+                id: 14,
+                question: "What does 'Average Pooling' compute for a given region in a feature map?",
+                options: [
+                    "The largest value",
+                    "The smallest value",
+                    "The arithmetic mean (average) value of pixels in that region",
+                    "The difference between maximum and minimum values"
+                ],
+                correct: 2,
+                explanation: "Average Pooling calculates the mean value of all numbers present inside the pooling window matrix."
+            },
+            {
+                id: 15,
+                question: "What process converts a 2D or 3D feature matrix into a 1D linear array before passing it to fully connected layers?",
+                options: [
+                    "Flattening",
+                    "Padding",
+                    "Pooling",
+                    "Segmenting"
+                ],
+                correct: 0,
+                explanation: "Flattening unrolls multi-dimensional feature maps (2D or 3D) into a single 1D vector so standard artificial neural networks (dense layers) can process them."
+            },
+            {
+                id: 16,
+                question: "In a complete CNN architecture, where is the 'Fully Connected Layer' (Dense Layer) located?",
+                options: [
+                    "At the very beginning before image input",
+                    "Towards the end of the network to perform final classification",
+                    "Inside the pooling layer",
+                    "Between color channels of the original image"
+                ],
+                correct: 1,
+                explanation: "Fully Connected (Dense) layers sit near the end of the CNN to combine extracted features and generate final classification scores."
+            },
+            {
+                id: 17,
+                question: "Which of the following is a key advantage of CNNs over traditional dense neural networks for image processing?",
+                options: [
+                    "CNNs require no training data",
+                    "CNNs automatically learn spatial features (edges, shapes) from images without manual feature engineering",
+                    "CNNs can only process text files",
+                    "CNNs do not use weights or bias parameters"
+                ],
+                correct: 1,
+                explanation: "CNNs preserve spatial relationships between pixels and automatically extract hierarchical features (edges -> textures -> object parts) directly from raw images."
+            },
+            {
+                id: 18,
+                question: "Earlier layers in a CNN generally detect simple features like edges and lines. What do deeper layers detect?",
+                options: [
+                    "Simpler features like single dots",
+                    "Complex object parts and full structures (e.g., eyes, wheels, faces)",
+                    "File formats and extension tags",
+                    "Keyboard inputs"
+                ],
+                correct: 1,
+                explanation: "CNNs learn hierarchically: early layers detect low-level edges/colors, middle layers detect textures/shapes, and deep layers recognize complete complex objects."
+            },
+            {
+                id: 19,
+                question: "Which computer vision task identifies 'WHAT' object is present in an image along with 'WHERE' it is located using a bounding box?",
+                options: [
+                    "Image Classification",
+                    "Object Detection",
+                    "Text Summarization",
+                    "Audio Transcription"
+                ],
+                correct: 1,
+                explanation: "Object Detection classifies items in an image and pinpoints their locations using bounding boxes."
+            },
+            {
+                id: 20,
+                question: "Why are GPUs (Graphics Processing Units) preferred for training CNN models?",
+                options: [
+                    "They consume zero electricity",
+                    "They possess thousands of cores capable of handling parallel matrix multiplication efficiently",
+                    "They can only execute audio processing",
+                    "They do not require memory storage"
+                ],
+                correct: 1,
+                explanation: "CNN operations consist heavily of matrix multiplications. GPUs excel at parallel computation, making CNN training much faster than CPUs."
+            }
+        ];
+
+        // STATE VARIABLES
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let visitedQuestions = new Array(quizData.length).fill(false);
+        let flaggedQuestions = new Array(quizData.length).fill(false);
+        
+        let quizMode = 'exam';
+        let timerSeconds = 0;
+        let timerInterval = null;
+
+        // DOM ELEMENTS
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const resultsScreen = document.getElementById('results-screen');
+        const submitModal = document.getElementById('submit-modal');
+
+        const headerStats = document.getElementById('header-stats');
+        const timerDisplay = document.getElementById('timer-display');
+        const progressText = document.getElementById('progress-text');
+        
+        const qProgressCount = document.getElementById('q-progress-count');
+        const qProgressPercent = document.getElementById('q-progress-percent');
+        const progressBarFill = document.getElementById('progress-bar-fill');
+
+        const questionBadge = document.getElementById('question-number-badge');
+        const questionText = document.getElementById('question-text');
+        const optionsContainer = document.getElementById('options-container');
+
+        const flagBtn = document.getElementById('flag-btn');
+        const flagIcon = document.getElementById('flag-icon');
+        const flagText = document.getElementById('flag-text');
+
+        const explanationBox = document.getElementById('explanation-box');
+        const feedbackTitle = document.getElementById('feedback-title');
+        const feedbackExplanation = document.getElementById('feedback-explanation');
+
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitQuizBtn = document.getElementById('submit-quiz-btn');
+
+        const paletteGrid = document.getElementById('palette-grid');
+        const answeredCountBadge = document.getElementById('answered-count-badge');
+
+        const modalSummaryText = document.getElementById('modal-summary-text');
+        const modalCancelBtn = document.getElementById('modal-cancel-btn');
+        const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+
+        const restartBtn = document.getElementById('restart-btn');
+        const reviewList = document.getElementById('review-list');
+        const reviewFilterBtns = document.querySelectorAll('#review-filters .filter-btn');
+
+        // INITIALIZATION
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('input[name="quiz-mode"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    quizMode = e.target.value;
+                    const modeExamLabel = document.getElementById('mode-exam-label');
+                    const modeInstantLabel = document.getElementById('mode-instant-label');
+
+                    if (quizMode === 'exam') {
+                        modeExamLabel.className = 'cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600';
+                        modeInstantLabel.className = 'cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300';
+                    } else {
+                        modeInstantLabel.className = 'cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600';
+                        modeExamLabel.className = 'cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300';
+                    }
+                });
+            });
+
+            document.getElementById('start-btn').addEventListener('click', startQuiz);
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            flagBtn.addEventListener('click', toggleFlagCurrentQuestion);
+
+            submitQuizBtn.addEventListener('click', openSubmitConfirmationModal);
+            modalCancelBtn.addEventListener('click', closeSubmitConfirmationModal);
+            modalConfirmBtn.addEventListener('click', finalizeAndSubmitQuiz);
+
+            restartBtn.addEventListener('click', resetQuizState);
+
+            reviewFilterBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    reviewFilterBtns.forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                        b.classList.add('text-slate-600');
+                    });
+                    btn.classList.add('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                    btn.classList.remove('text-slate-600');
+                    renderReviewList(btn.getAttribute('data-filter'));
+                });
+            });
+        });
+
+        // CORE LOGIC
+        function startQuiz() {
+            startScreen.classList.add('hidden');
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerStats.classList.remove('hidden');
+
+            timerSeconds = 0;
+            startTimer();
+            buildPaletteGrid();
+            renderQuestion(0);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+                const mins = Math.floor(timerSeconds / 60);
+                const secs = timerSeconds % 60;
+                timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function buildPaletteGrid() {
+            paletteGrid.innerHTML = '';
+            quizData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.type = "button";
+                btn.textContent = idx + 1;
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center bg-slate-100 text-slate-700 border-slate-200 hover:border-emerald-400";
+                
+                btn.addEventListener('click', () => {
+                    renderQuestion(idx);
+                });
+
+                paletteGrid.appendChild(btn);
+            });
+        }
+
+        function updatePaletteGrid() {
+            const answeredCount = userAnswers.filter(ans => ans !== null).length;
+            answeredCountBadge.textContent = `${answeredCount}/20`;
+
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (!btn) return;
+
+                const isCurrent = idx === currentQuestionIndex;
+                const isAnswered = userAnswers[idx] !== null;
+                const isVisited = visitedQuestions[idx];
+                const isFlagged = flaggedQuestions[idx];
+
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center relative ";
+
+                if (isCurrent) {
+                    btn.classList.add('ring-2', 'ring-emerald-600', 'ring-offset-2');
+                }
+
+                if (isFlagged) {
+                    btn.classList.add('bg-purple-500', 'text-white', 'border-purple-600');
+                } else if (isAnswered) {
+                    btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                } else if (isVisited) {
+                    btn.classList.add('bg-amber-400', 'text-amber-950', 'border-amber-500');
+                } else {
+                    btn.classList.add('bg-slate-200', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-300');
+                }
+            });
+        }
+
+        function renderQuestion(index) {
+            currentQuestionIndex = index;
+            visitedQuestions[index] = true;
+
+            const qData = quizData[index];
+
+            progressText.textContent = `${index + 1}/20`;
+            qProgressCount.textContent = `Question ${index + 1} of 20`;
+            const pct = Math.round(((index + 1) / quizData.length) * 100);
+            qProgressPercent.textContent = `${pct}% Completed`;
+            progressBarFill.style.width = `${pct}%`;
+
+            questionBadge.textContent = `Q${index + 1}`;
+            questionText.textContent = qData.question;
+
+            if (flaggedQuestions[index]) {
+                flagBtn.className = "shrink-0 text-purple-700 bg-purple-100 hover:bg-purple-200 p-2.5 rounded-xl border border-purple-300 transition text-xs flex items-center gap-1.5 font-bold";
+                flagIcon.className = "fa-solid fa-bookmark text-sm";
+                flagText.textContent = "Flagged";
+            } else {
+                flagBtn.className = "shrink-0 text-slate-500 hover:text-purple-600 bg-slate-50 hover:bg-purple-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium";
+                flagIcon.className = "fa-regular fa-bookmark text-sm";
+                flagText.textContent = "Mark";
+            }
+
+            optionsContainer.innerHTML = '';
+            const userSelected = userAnswers[index];
+
+            qData.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.type = "button";
+                optBtn.className = "w-full text-left p-3.5 sm:p-4 rounded-xl border text-sm sm:text-base font-medium transition-all duration-150 flex items-start gap-3 group relative ";
+
+                const labelLetter = String.fromCharCode(65 + optIdx);
+
+                let borderStyle = "border-slate-200 bg-white hover:border-emerald-300 hover:bg-slate-50 text-slate-800";
+                let badgeStyle = "bg-slate-100 text-slate-600 group-hover:bg-emerald-100 group-hover:text-emerald-700";
+
+                if (userSelected !== null) {
+                    if (quizMode === 'instant') {
+                        if (optIdx === qData.correct) {
+                            borderStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold";
+                            badgeStyle = "bg-emerald-500 text-white";
+                        } else if (optIdx === userSelected) {
+                            borderStyle = "border-rose-500 bg-rose-50 text-rose-900 font-bold";
+                            badgeStyle = "bg-rose-500 text-white";
+                        } else {
+                            borderStyle = "border-slate-200 bg-white opacity-50 text-slate-500";
+                        }
+                    } else {
+                        if (optIdx === userSelected) {
+                            borderStyle = "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-1 ring-emerald-600";
+                            badgeStyle = "bg-emerald-600 text-white";
+                        }
+                    }
+                }
+
+                optBtn.className += borderStyle;
+
+                optBtn.innerHTML = `
+                    <span class="w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 transition ${badgeStyle}">
+                        ${labelLetter}
+                    </span>
+                    <span class="flex-grow pt-0.5 leading-snug">${optText}</span>
+                `;
+
+                optBtn.addEventListener('click', () => {
+                    selectOption(index, optIdx);
+                });
+
+                optionsContainer.appendChild(optBtn);
+            });
+
+            if (quizMode === 'instant' && userSelected !== null) {
+                explanationBox.classList.remove('hidden');
+                if (userSelected === qData.correct) {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-emerald-50 border-emerald-200 text-emerald-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Correct Answer!`;
+                } else {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-rose-50 border-rose-200 text-rose-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> Incorrect Answer`;
+                }
+                feedbackExplanation.textContent = qData.explanation;
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+
+            if (index === quizData.length - 1) {
+                nextBtn.classList.add('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+
+            updatePaletteGrid();
+        }
+
+        function selectOption(qIdx, optionIdx) {
+            userAnswers[qIdx] = optionIdx;
+            renderQuestion(qIdx);
+        }
+
+        function toggleFlagCurrentQuestion() {
+            flaggedQuestions[currentQuestionIndex] = !flaggedQuestions[currentQuestionIndex];
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                renderQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                renderQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // SUBMIT AND RESULTS LOGIC
+        function openSubmitConfirmationModal() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const unattemptedCount = quizData.length - answeredCount;
+            const flaggedCount = flaggedQuestions.filter(f => f).length;
+
+            let summaryHtml = `
+                <div class="flex justify-between items-center">
+                    <span>Total Questions:</span>
+                    <strong class="text-slate-900">20</strong>
+                </div>
+                <div class="flex justify-between items-center text-emerald-700">
+                    <span>Answered Questions:</span>
+                    <strong>${answeredCount}</strong>
+                </div>
+                <div class="flex justify-between items-center text-amber-700">
+                    <span>Unattempted Questions:</span>
+                    <strong>${unattemptedCount}</strong>
+                </div>
+            `;
+
+            if (flaggedCount > 0) {
+                summaryHtml += `
+                    <div class="flex justify-between items-center text-purple-700 pt-1 border-t border-slate-200">
+                        <span>Flagged for Review:</span>
+                        <strong>${flaggedCount}</strong>
+                    </div>
+                `;
+            }
+
+            if (unattemptedCount > 0) {
+                summaryHtml += `
+                    <p class="text-xs text-amber-600 font-semibold pt-2 border-t border-slate-200">
+                        ⚠️ You still have ${unattemptedCount} unattempted question(s). Are you sure you want to finalize submission?
+                    </p>
+                `;
+            } else {
+                summaryHtml += `
+                    <p class="text-xs text-emerald-600 font-semibold pt-2 border-t border-slate-200">
+                        🎉 Great! You have answered all 20 questions.
+                    </p>
+                `;
+            }
+
+            modalSummaryText.innerHTML = summaryHtml;
+            submitModal.classList.remove('hidden');
+        }
+
+        function closeSubmitConfirmationModal() {
+            submitModal.classList.add('hidden');
+        }
+
+        function finalizeAndSubmitQuiz() {
+            clearInterval(timerInterval);
+            closeSubmitConfirmationModal();
+
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const totalScore = correctCount;
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            const attemptedCount = correctCount + incorrectCount;
+            const accuracy = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
+
+            document.getElementById('final-score').textContent = totalScore;
+            document.getElementById('final-percentage').textContent = `${percentage}%`;
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('final-time').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            document.getElementById('count-correct').textContent = correctCount;
+            document.getElementById('count-incorrect').textContent = incorrectCount;
+            document.getElementById('count-unattempted').textContent = unattemptedCount;
+
+            const remarkEl = document.getElementById('final-remark');
+            if (percentage >= 90) {
+                remarkEl.textContent = "Grade A+: CNN Master! 🏆";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 75) {
+                remarkEl.textContent = "Grade A: Excellent Understanding! 🌟";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 50) {
+                remarkEl.textContent = "Grade B: Good Effort, Keep Practicing! 👍";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-amber-100 text-amber-800 border border-amber-300";
+            } else {
+                remarkEl.textContent = "Needs Revision & Study! 📖";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300";
+            }
+
+            renderReviewList('all');
+        }
+
+        function renderReviewList(filter = 'all') {
+            reviewList.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const isUnattempted = userAns === null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || isUnattempted)) return;
+                if (filter === 'unattempted' && !isUnattempted) return;
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 border border-slate-200/90 rounded-xl p-4 sm:p-5 space-y-3";
+
+                let statusBadge = '';
+                if (isUnattempted) {
+                    statusBadge = `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold px-2.5 py-1 rounded-md">Unattempted</span>`;
+                } else if (isCorrect) {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct</span>`;
+                } else {
+                    statusBadge = `<span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Incorrect</span>`;
+                }
+
+                let optionsHtml = '';
+                q.options.forEach((optText, optIdx) => {
+                    const letter = String.fromCharCode(65 + optIdx);
+                    let optStyle = "text-slate-600 border-slate-200 bg-white";
+
+                    if (optIdx === q.correct) {
+                        optStyle = "text-emerald-950 border-emerald-300 bg-emerald-50/80 font-bold";
+                    } else if (optIdx === userAns && !isCorrect) {
+                        optStyle = "text-rose-950 border-rose-300 bg-rose-50/80 font-bold";
+                    }
+
+                    optionsHtml += `
+                        <div class="p-2.5 rounded-lg border text-xs sm:text-sm flex items-start gap-2.5 ${optStyle}">
+                            <span class="font-bold shrink-0">${letter}.</span>
+                            <span class="flex-grow">${optText}</span>
+                            ${optIdx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 shrink-0 my-auto text-sm" title="Correct Answer"></i>' : ''}
+                            ${(optIdx === userAns && !isCorrect) ? '<i class="fa-solid fa-circle-xmark text-rose-600 shrink-0 my-auto text-sm" title="Your Choice"></i>' : ''}
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-2.5">
+                            <span class="bg-slate-200 text-slate-800 font-bold text-xs px-2 py-0.5 rounded mt-0.5">Q${idx + 1}</span>
+                            <h4 class="font-bold text-sm sm:text-base text-slate-900 leading-snug">${q.question}</h4>
+                        </div>
+                        <div class="shrink-0">${statusBadge}</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        ${optionsHtml}
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
+                        <div class="font-bold text-slate-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span>Concept Explanation:</span>
+                        </div>
+                        <p class="leading-relaxed text-slate-600">${q.explanation}</p>
+                    </div>
+                `;
+
+                reviewList.appendChild(card);
+            });
+
+            if (reviewList.children.length === 0) {
+                reviewList.innerHTML = `
+                    <div class="text-center py-8 text-slate-500 text-sm">
+                        No questions match the selected filter criteria.
+                    </div>
+                `;
+            }
+        }
+
+        function resetQuizState() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            visitedQuestions = new Array(quizData.length).fill(false);
+            flaggedQuestions = new Array(quizData.length).fill(false);
+
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            headerStats.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
