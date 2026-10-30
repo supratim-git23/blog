@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Class 10 AI - Supervised Machine Learning Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration and Engine -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-emerald-500 selection:text-white">
+
+    <!-- Header Banner -->
+    <header class="bg-gradient-to-r from-emerald-900 via-teal-900 to-slate-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+                    <i class="fa-solid fa-brain text-2xl text-emerald-300"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight leading-snug">CBSE Class 10 AI (Code 417)</h1>
+                    <p class="text-xs text-emerald-200 font-medium">Supervised Machine Learning Interactive Quiz</p>
+                </div>
+            </div>
+
+            <!-- Quiz Timer & Progress Stats -->
+            <div id="header-stats" class="hidden flex items-center gap-3 ml-auto">
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-regular fa-clock text-amber-300"></i>
+                    <span id="timer-display" class="font-mono font-bold tracking-wider text-amber-100">00:00</span>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-300"></i>
+                    <span id="progress-text" class="font-semibold">0/20</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 flex-grow w-full">
+
+        <!-- ================= 1. START SCREEN ================= -->
+        <section id="start-screen" class="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-10 max-w-2xl mx-auto text-center space-y-6">
+            <div class="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto text-emerald-600 text-3xl shadow-inner border border-emerald-100">
+                <i class="fa-solid fa-chart-line"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Supervised ML Practice Quiz</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Evaluate your knowledge on Supervised Machine Learning for CBSE Class 10 AI (Code 417). Key topics include Labeled Datasets, Regression vs Classification, Linear Regression, Logistic Regression, Decision Trees, KNN, Train-Test Split, Overfitting, and Performance Metrics.
+                </p>
+            </div>
+
+            <!-- Overview Stats Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-left bg-slate-50 p-4 rounded-xl border border-slate-200/80 text-xs sm:text-sm">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-circle-question text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">20 Questions</div>
+                        <div class="text-slate-500 text-[11px]">Multiple Choice</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-square-root-variable text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">MathJax Equations</div>
+                        <div class="text-slate-500 text-[11px]">Formulas Included</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-graduation-cap text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">CBSE Syllabus</div>
+                        <div class="text-slate-500 text-[11px]">Code 417 Aligned</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mode & Timer Options Grid -->
+            <div class="space-y-4 text-left">
+                <!-- Mode Selector -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Practice Mode:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label id="mode-exam-label" class="cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600">
+                            <input type="radio" name="quiz-mode" value="exam" checked class="mt-1 accent-emerald-600">
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Standard Exam Mode</div>
+                                <p class="text-xs text-slate-500 mt-0.5">Answer all questions and submit to view your total score, analytics, and solution explanations.</p>
+                            </div>
+                        </label>
+
+                        <label id="mode-instant-label" class="cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300">
+                            <input type="radio" name="quiz-mode" value="instant" class="mt-1 accent-emerald-600">
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Instant Practice Mode</div>
+                                <p class="text-xs text-slate-500 mt-0.5">Receive immediate feedback, correct answers, and explanations right after choosing an option.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Timer Selection -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Time Limit:</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="none" checked class="accent-emerald-600">
+                            <span>No Limit</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="15" class="accent-emerald-600">
+                            <span>15 Minutes</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="20" class="accent-emerald-600">
+                            <span>20 Minutes</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="30" class="accent-emerald-600">
+                            <span>30 Minutes</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="start-btn" type="button" class="w-full py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition duration-200 flex items-center justify-center gap-2 text-base cursor-pointer">
+                <span>Start Supervised ML Quiz</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- ================= 2. QUIZ INTERFACE SCREEN ================= -->
+        <section id="quiz-screen" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Main Question Area (Left - 3 columns) -->
+            <div class="lg:col-span-3 space-y-4">
+
+                <!-- Progress Header Bar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                        <span id="q-progress-count">Question 1 of 20</span>
+                        <span id="q-progress-percent" class="text-emerald-600">5% Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-emerald-600 h-full w-[5%] transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Main Question Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                    
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <span id="question-number-badge" class="bg-emerald-100 text-emerald-800 font-bold text-xs sm:text-sm px-3 py-1 rounded-lg shrink-0 mt-0.5">
+                                Q1
+                            </span>
+                            <h2 id="question-text" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                                Question text loading...
+                            </h2>
+                        </div>
+                        
+                        <!-- Flag for Review Button -->
+                        <button id="flag-btn" type="button" class="shrink-0 text-slate-400 hover:text-purple-600 bg-slate-50 hover:bg-purple-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium" title="Flag this question to review later">
+                            <i class="fa-regular fa-bookmark text-sm" id="flag-icon"></i>
+                            <span class="hidden sm:inline" id="flag-text">Mark</span>
+                        </button>
+                    </div>
+
+                    <!-- Options Container -->
+                    <div id="options-container" class="space-y-3">
+                        <!-- Dynamic options -->
+                    </div>
+
+                    <!-- Instant Feedback Explanation Box -->
+                    <div id="explanation-box" class="hidden rounded-xl p-4 border text-sm space-y-1.5">
+                        <div class="flex items-center gap-2 font-bold" id="feedback-title"></div>
+                        <p id="feedback-explanation" class="text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                </div>
+
+                <!-- Footer Action Controls -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <div class="flex items-center gap-2">
+                        <button id="prev-btn" type="button" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-sm transition shadow-sm flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button id="clear-btn" type="button" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5" title="Clear chosen answer for this question">
+                            <i class="fa-solid fa-eraser"></i>
+                            <span>Clear Answer</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2 ml-auto">
+                        <button id="next-btn" type="button" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-500/20 flex items-center gap-2">
+                            <span>Next</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <button id="submit-quiz-btn" type="button" class="px-5 py-2.5 bg-teal-600 hover:bg-teal-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-teal-600/20 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Submit Quiz</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Question Palette Sidebar (Right - 1 column) -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 sticky top-20 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-border-all text-emerald-600"></i>
+                            Question Palette
+                        </h3>
+                        <span id="answered-count-badge" class="text-xs bg-slate-100 font-semibold text-slate-600 px-2 py-0.5 rounded-full">
+                            0/20
+                        </span>
+                    </div>
+
+                    <!-- Question Number Grid -->
+                    <div id="palette-grid" class="grid grid-cols-5 gap-2 max-h-60 lg:max-h-none overflow-y-auto custom-scrollbar p-0.5">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-medium">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-emerald-500 border border-emerald-600 inline-block"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-amber-400 border border-amber-500 inline-block"></span>
+                            <span>Unanswered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-purple-500 border border-purple-600 inline-block"></span>
+                            <span>Flagged</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-slate-200 border border-slate-300 inline-block"></span>
+                            <span>Not Visited</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= 3. FINAL RESULTS SCREEN ================= -->
+        <section id="results-screen" class="hidden space-y-8 max-w-4xl mx-auto">
+            
+            <!-- Summary Card -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-emerald-600 via-teal-500 to-sky-500"></div>
+
+                <div class="space-y-1 pt-2">
+                    <span class="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">Assessment Complete</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Your Supervised ML Performance Report</h2>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 max-w-3xl mx-auto">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Total Score</span>
+                        <div class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                            <span id="final-score">0</span> <span class="text-sm text-slate-400 font-normal">/ 20</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Percentage</span>
+                        <div id="final-percentage" class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Accuracy</span>
+                        <div id="final-accuracy" class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Time Elapsed</span>
+                        <div id="final-time" class="text-xl sm:text-2xl font-black text-slate-800 mt-1.5 font-mono">
+                            00:00
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Counts -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-bold pt-1">
+                    <div class="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Correct: <span id="count-correct">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Incorrect: <span id="count-incorrect">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
+                        <i class="fa-solid fa-circle-minus"></i>
+                        <span>Unattempted: <span id="count-unattempted">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Remark Badge -->
+                <div id="remark-badge-container" class="pt-1">
+                    <span id="final-remark" class="inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        Grade: Remark
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-3 pt-2">
+                    <button id="restart-btn" type="button" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Retake Quiz</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Review & Solutions Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-extrabold text-slate-900">Question-by-Question Detailed Review</h3>
+                        <p class="text-xs text-slate-500">Analyze your answers and read comprehensive explanations with equations.</p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold" id="review-filters">
+                        <button type="button" data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition">All (20)</button>
+                        <button type="button" data-filter="correct" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Correct</button>
+                        <button type="button" data-filter="incorrect" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Incorrect</button>
+                        <button type="button" data-filter="unattempted" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Unattempted</button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Review Cards Container -->
+                <div id="review-list" class="space-y-4">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= SUBMIT CONFIRMATION MODAL ================= -->
+    <div id="submit-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 space-y-5">
+            <div class="flex items-center gap-3 text-amber-600">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-extrabold text-slate-900">Confirm Submission</h3>
+                    <p class="text-xs text-slate-500">Review your quiz completion status before finalizing.</p>
+                </div>
+            </div>
+
+            <div id="modal-summary-text" class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                <!-- Injected dynamically -->
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button id="modal-cancel-btn" type="button" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition">
+                    Continue Quiz
+                </button>
+                <button id="modal-confirm-btn" type="button" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-600/20">
+                    Yes, Submit Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-6">
+        <div class="max-w-6xl mx-auto px-4">
+            CBSE Class 10 Artificial Intelligence • Supervised Learning Module (Code 417)
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        // -------------------------------------------------------------
+        // 20 CBSE CLASS 10 AI SUPERVISED ML QUESTIONS DATASET
+        // -------------------------------------------------------------
+        const quizData = [
+            {
+                id: 1,
+                question: "What is the defining characteristic of Supervised Machine Learning?",
+                options: [
+                    "It trains models on unlabeled data without any ground truth output.",
+                    "It learns mapping functions from labeled training datasets consisting of input features \\(X\\) and target values \\(Y\\).",
+                    "It relies purely on rewards and penalties in a virtual environment.",
+                    "It only works with unstructured audio recordings."
+                ],
+                correct: 1,
+                explanation: "Supervised Learning models learn from labeled datasets where each input instance \\(X\\) is explicitly paired with a target label \\(Y\\) to learn the mapping function \\(f(X) = Y\\)."
+            },
+            {
+                id: 2,
+                question: "Which of the following tasks is an example of a 'Regression' problem?",
+                options: [
+                    "Classifying an email as Spam or Not Spam",
+                    "Predicting the exact temperature in Celsius for tomorrow: \\(Y \\in \\mathbb{R}\\)",
+                    "Identifying whether a tumor is Malignant or Benign",
+                    "Grouping customer profiles into 5 distinct marketing clusters"
+                ],
+                correct: 1,
+                explanation: "Regression tasks predict continuous, real-valued numerical target quantities (e.g., house prices, temperatures), whereas Classification predicts discrete categorical labels."
+            },
+            {
+                id: 3,
+                question: "Which task represents a 'Classification' problem in Supervised Learning?",
+                options: [
+                    "Predicting a student's final score percentage (e.g., 85.5%)",
+                    "Predicting automobile fuel efficiency in miles per gallon",
+                    "Predicting whether a bank loan transaction is Fraudulent (1) or Legitimate (0)",
+                    "Estimating the salary of a software engineer based on years of experience"
+                ],
+                correct: 2,
+                explanation: "Predicting Fraudulent vs. Legitimate is a binary classification problem because the output variable falls into discrete categories."
+            },
+            {
+                id: 4,
+                question: "In Simple Linear Regression, what equation describes the relationship between input feature \\(x\\) and predicted continuous target \\(y\\)?",
+                options: [
+                    "\\(y = mx + c\\) (or \\(y = w x + b\\))",
+                    "\\(y = \\frac{1}{1 + e^{-x}}\\)",
+                    "\\(y = \\sqrt{x_1^2 + x_2^2}\\)",
+                    "\\(y = \\max(0, x)\\)"
+                ],
+                correct: 0,
+                explanation: "Simple Linear Regression fits a straight line given by \\(y = m x + c\\), where \\(m\\) is the slope (weight) and \\(c\\) is the y-intercept (bias)."
+            },
+            {
+                id: 5,
+                question: "Which loss function is commonly used to measure the average squared error between actual targets \\(y_i\\) and predicted values \\(\\hat{y}_i\\) in Linear Regression?",
+                options: [
+                    "Mean Squared Error (MSE): \\(\\text{MSE} = \\frac{1}{n} \\sum_{i=1}^{n} (y_i - \\hat{y}_i)^2\\)",
+                    "Binary Cross-Entropy Loss",
+                    "Accuracy Score percentage",
+                    "Cosine Similarity Index"
+                ],
+                correct: 0,
+                explanation: "Mean Squared Error (MSE) calculates the average squared difference between true values \\(y_i\\) and model predictions \\(\\hat{y}_i\\)."
+            },
+            {
+                id: 6,
+                question: "Why is Logistic Regression used for Binary Classification despite having 'Regression' in its name?",
+                options: [
+                    "It maps continuous linear outputs through a Sigmoid activation function \\(\\sigma(z) = \\frac{1}{1 + e^{-z}}\\) to produce probabilities between 0 and 1.",
+                    "It calculates cluster centroids using Euclidean distance.",
+                    "It builds decision trees with high gini impurity.",
+                    "It sorts numbers in strictly descending numerical order."
+                ],
+                correct: 0,
+                explanation: "Logistic Regression applies the Sigmoid function \\(\\sigma(z) = \\frac{1}{1 + e^{-z}}\\) to compress real numbers into range \\((0, 1)\\), representing class probabilities."
+            },
+            {
+                id: 7,
+                question: "In a Decision Tree model, what is the starting top node that represents the entire dataset before any splits occur called?",
+                options: [
+                    "Leaf Node",
+                    "Root Node",
+                    "Terminal Node",
+                    "Child Node"
+                ],
+                correct: 1,
+                explanation: "The top-most decision node in a Decision Tree is the Root Node, which performs the initial feature split across the whole dataset."
+            },
+            {
+                id: 8,
+                question: "What do the final 'Leaf Nodes' (or Terminal Nodes) in a Decision Tree represent?",
+                options: [
+                    "The primary feature split condition",
+                    "The final predicted class label or continuous output decision",
+                    "The distance between cluster centers",
+                    "The learning rate constant"
+                ],
+                correct: 1,
+                explanation: "Leaf Nodes are terminal nodes that contain no further splits and output the final predicted class or value."
+            },
+            {
+                id: 9,
+                question: "How does the \\(k\\)-Nearest Neighbors (\\(k\\)-NN) algorithm classify an unlabelled query instance?",
+                options: [
+                    "By finding the \\(k\\) closest training examples in feature space based on distance metrics and assigning the majority class label",
+                    "By constructing a straight regression hyperplane through gradient descent",
+                    "By calculating the derivative of a loss function",
+                    "By randomly picking a class label regardless of inputs"
+                ],
+                correct: 0,
+                explanation: "\\(k\\)-NN calculates distances (e.g., Euclidean distance) to all training points, identifies the \\(k\\) nearest neighbors, and predicts the majority class among them."
+            },
+            {
+                id: 10,
+                question: "Which distance formula is most standard in \\(k\\)-NN for measuring distance between two points \\(P(x_1, y_1)\\) and \\(Q(x_2, y_2)\\)?",
+                options: [
+                    "Euclidean Distance: \\(d(P,Q) = \\sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}\\)",
+                    "Manhattan Distance: \\(d(P,Q) = |x_2 - x_1| + |y_2 - y_1|\\)",
+                    "Cosine Distance",
+                    "Hamming Distance"
+                ],
+                correct: 0,
+                explanation: "Euclidean distance measures straight-line distance between two points using the Pythagorean formula."
+            },
+            {
+                id: 11,
+                question: "In Support Vector Machines (SVM), what is the decision boundary that separates different classes called?",
+                options: [
+                    "Hyperplane",
+                    "Dendrogram",
+                    "Centroid vector",
+                    "Sigmoid threshold"
+                ],
+                correct: 0,
+                explanation: "SVM constructs a decision boundary known as a Hyperplane (a line in 2D, plane in 3D, or high-dimensional subspace) to maximize margin separation between classes."
+            },
+            {
+                id: 12,
+                question: "Why is a dataset usually split into 'Training set' and 'Testing set' during Supervised Machine Learning?",
+                options: [
+                    "To train the model on the training set and objectively evaluate its generalization performance on unseen test data",
+                    "Because computers cannot process more than 50% of data at once",
+                    "To convert categorical text features into numerical values",
+                    "To permanently remove outliers from the system"
+                ],
+                correct: 0,
+                explanation: "Splitting data (e.g., 80% train, 20% test) ensures we evaluate how accurately the trained model generalizes to new, unseen data."
+            },
+            {
+                id: 13,
+                question: "What is 'Overfitting' in Supervised Machine Learning?",
+                options: [
+                    "When a model performs exceptionally well on training data but fails to generalize accurately on unseen test data",
+                    "When a model performs poorly on both training data and testing data",
+                    "When a model trains in less than one second",
+                    "When the dataset contains no feature columns"
+                ],
+                correct: 0,
+                explanation: "Overfitting occurs when a complex model learns noise and specific details of training data too closely, reducing test set accuracy."
+            },
+            {
+                id: 14,
+                question: "What is 'Underfitting' in Supervised Learning?",
+                options: [
+                    "When a model is too simple to capture underlying patterns, resulting in poor performance on both training and test datasets",
+                    "When training accuracy is 100% and test accuracy is 100%",
+                    "When the test set size is larger than the training set",
+                    "When the model uses GPU hardware acceleration"
+                ],
+                correct: 0,
+                explanation: "Underfitting happens when a model lacks complexity (e.g., fitting a linear line to quadratic data) and fails to capture basic trends."
+            },
+            {
+                id: 15,
+                question: "How is 'Accuracy' calculated for a classification model using a Confusion Matrix?",
+                options: [
+                    "\\(\\text{Accuracy} = \\frac{\\text{TP} + \\text{TN}}{\\text{TP} + \\text{TN} + \\text{FP} + \\text{FN}}\\)",
+                    "\\(\\text{Accuracy} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}\\)",
+                    "\\(\\text{Accuracy} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}\\)",
+                    "\\(\\text{Accuracy} = \\frac{\\text{FP}}{\\text{TN}}\\)"
+                ],
+                correct: 0,
+                explanation: "Accuracy is the ratio of total correct predictions (True Positives + True Negatives) over all predictions."
+            },
+            {
+                id: 16,
+                question: "In evaluation metrics, what does 'Precision' measure?",
+                options: [
+                    "The proportion of predicted positive instances that were actually positive: \\(\\text{Precision} = \\frac{\\text{TP}}{\\text{TP} + \\text{FP}}\\)",
+                    "The proportion of actual positive instances correctly identified: \\(\\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}\\)",
+                    "The total runtime of the ML algorithm in seconds",
+                    "The percentage of missing values filled in during preprocessing"
+                ],
+                correct: 0,
+                explanation: "Precision measures exactness: out of all cases predicted as positive (\\(\\text{TP} + \\text{FP}\\)), how many were truly positive (\\(\\text{TP}\\))."
+            },
+            {
+                id: 17,
+                question: "In evaluation metrics, what does 'Recall' (Sensitivity) measure?",
+                options: [
+                    "The proportion of actual positive instances correctly identified by the model: \\(\\text{Recall} = \\frac{\\text{TP}}{\\text{TP} + \\text{FN}}\\)",
+                    "The proportion of predicted positives that are correct",
+                    "The ratio of false positives to true negatives",
+                    "The memory usage of the trained model file"
+                ],
+                correct: 0,
+                explanation: "Recall measures completeness: out of all real positive instances (\\(\\text{TP} + \\text{FN}\\)), how many did the model correctly detect."
+            },
+            {
+                id: 18,
+                question: "What is the 'F1-Score' in model evaluation?",
+                options: [
+                    "The harmonic mean of Precision and Recall: \\(\\text{F1} = 2 \\times \\frac{\\text{Precision} \\times \\text{Recall}}{\\text{Precision} + \\text{Recall}}\\)",
+                    "The arithmetic sum of Accuracy and MSE",
+                    "The difference between True Positives and False Positives",
+                    "The ratio of training time to testing time"
+                ],
+                correct: 0,
+                explanation: "The F1-Score balances Precision and Recall by taking their harmonic mean, providing a robust metric for imbalanced datasets."
+            },
+            {
+                id: 19,
+                question: "Which Supervised Learning algorithm is non-parametric and stores all training instances rather than learning explicit equation parameters during training?",
+                options: [
+                    "\\(k\\)-Nearest Neighbors (\\(k\\)-NN)",
+                    "Linear Regression",
+                    "Logistic Regression",
+                    "Multi-Layer Perceptron"
+                ],
+                correct: 0,
+                explanation: "\\(k\\)-NN is an instance-based (lazy learning) algorithm that retains training data in memory and delays computation until test queries arrive."
+            },
+            {
+                id: 20,
+                question: "What is 'Feature Scaling' (e.g., Min-Max Normalization or Standard Scaling) essential for distance-based algorithms like \\(k\\)-NN?",
+                options: [
+                    "To prevent features with larger numerical magnitudes from dominating distance calculations over smaller-scale features",
+                    "To convert numerical values into text strings",
+                    "To multiply all dataset rows by a factor of 100",
+                    "To automatically generate target labels"
+                ],
+                correct: 0,
+                explanation: "Distance metrics (Euclidean distance) are sensitive to feature scales. Feature scaling normalizes features into comparable ranges (e.g., 0 to 1)."
+            }
+        ];
+
+        // STATE VARIABLES
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let visitedQuestions = new Array(quizData.length).fill(false);
+        let flaggedQuestions = new Array(quizData.length).fill(false);
+        let quizMode = 'exam'; // 'exam' or 'instant'
+        let timerSeconds = 0;
+        let timerTimeLimitSeconds = 0; // 0 means no limit
+        let timerInterval = null;
+
+        // DOM ELEMENTS
+        let startScreen, quizScreen, resultsScreen, submitModal;
+        let startBtn, prevBtn, nextBtn, clearBtn, flagBtn, submitQuizBtn, restartBtn;
+        let flagIcon, flagText, questionBadge, questionText, optionsContainer;
+        let progressText, qProgressCount, qProgressPercent, progressBarFill;
+        let paletteGrid, answeredCountBadge, explanationBox, feedbackTitle, feedbackExplanation;
+        let timerDisplay, headerStats, modalSummaryText, modalCancelBtn, modalConfirmBtn;
+        let reviewList;
+
+        // Helper function to safely invoke MathJax typeset
+        function renderMath() {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise().catch((err) => console.error("MathJax error: ", err));
+            }
+        }
+
+        // INITIALIZATION ON DOM READY
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind DOM Elements
+            startScreen = document.getElementById('start-screen');
+            quizScreen = document.getElementById('quiz-screen');
+            resultsScreen = document.getElementById('results-screen');
+            submitModal = document.getElementById('submit-modal');
+
+            startBtn = document.getElementById('start-btn');
+            prevBtn = document.getElementById('prev-btn');
+            nextBtn = document.getElementById('next-btn');
+            clearBtn = document.getElementById('clear-btn');
+            flagBtn = document.getElementById('flag-btn');
+            submitQuizBtn = document.getElementById('submit-quiz-btn');
+            restartBtn = document.getElementById('restart-btn');
+
+            flagIcon = document.getElementById('flag-icon');
+            flagText = document.getElementById('flag-text');
+            questionBadge = document.getElementById('question-number-badge');
+            questionText = document.getElementById('question-text');
+            optionsContainer = document.getElementById('options-container');
+
+            progressText = document.getElementById('progress-text');
+            qProgressCount = document.getElementById('q-progress-count');
+            qProgressPercent = document.getElementById('q-progress-percent');
+            progressBarFill = document.getElementById('progress-bar-fill');
+
+            paletteGrid = document.getElementById('palette-grid');
+            answeredCountBadge = document.getElementById('answered-count-badge');
+            explanationBox = document.getElementById('explanation-box');
+            feedbackTitle = document.getElementById('feedback-title');
+            feedbackExplanation = document.getElementById('feedback-explanation');
+
+            timerDisplay = document.getElementById('timer-display');
+            headerStats = document.getElementById('header-stats');
+            modalSummaryText = document.getElementById('modal-summary-text');
+            modalCancelBtn = document.getElementById('modal-cancel-btn');
+            modalConfirmBtn = document.getElementById('modal-confirm-btn');
+
+            reviewList = document.getElementById('review-list');
+
+            // Attach Event Listeners
+            startBtn.addEventListener('click', startQuiz);
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            clearBtn.addEventListener('click', clearCurrentAnswer);
+            flagBtn.addEventListener('click', toggleFlagCurrentQuestion);
+            submitQuizBtn.addEventListener('click', openSubmitConfirmationModal);
+            modalCancelBtn.addEventListener('click', closeSubmitConfirmationModal);
+            modalConfirmBtn.addEventListener('click', finalizeAndSubmitQuiz);
+            restartBtn.addEventListener('click', resetQuizState);
+
+            // Filter buttons listener
+            const filterContainer = document.getElementById('review-filters');
+            if (filterContainer) {
+                filterContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.filter-btn');
+                    if (!btn) return;
+                    
+                    filterContainer.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                        b.classList.add('text-slate-600');
+                    });
+
+                    btn.classList.add('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                    btn.classList.remove('text-slate-600');
+
+                    renderReviewList(btn.dataset.filter);
+                });
+            }
+
+            // Mode selector styling updates
+            const modeRadios = document.querySelectorAll('input[name="quiz-mode"]');
+            modeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    quizMode = e.target.value;
+                    const examLabel = document.getElementById('mode-exam-label');
+                    const instantLabel = document.getElementById('mode-instant-label');
+
+                    if (quizMode === 'exam') {
+                        examLabel.className = "cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600";
+                        instantLabel.className = "cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300";
+                    } else {
+                        instantLabel.className = "cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600";
+                        examLabel.className = "cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300";
+                    }
+                });
+            });
+
+            // Initial math render pass
+            renderMath();
+        });
+
+        // CORE QUIZ CONTROLLER FUNCTIONS
+        function startQuiz() {
+            // Read selected timer option
+            const timerSelected = document.querySelector('input[name="timer-option"]:checked').value;
+            if (timerSelected === 'none') {
+                timerTimeLimitSeconds = 0;
+            } else {
+                timerTimeLimitSeconds = parseInt(timerSelected, 10) * 60;
+            }
+
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerStats.classList.remove('hidden');
+
+            timerSeconds = 0;
+            startTimer();
+
+            buildPaletteGrid();
+            renderQuestion(0);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+
+                if (timerTimeLimitSeconds > 0) {
+                    const remaining = timerTimeLimitSeconds - timerSeconds;
+                    if (remaining <= 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.textContent = "00:00";
+                        alert("Time limit reached! Submitting your quiz now.");
+                        finalizeAndSubmitQuiz();
+                        return;
+                    }
+                    const mins = Math.floor(remaining / 60);
+                    const secs = remaining % 60;
+                    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                } else {
+                    const mins = Math.floor(timerSeconds / 60);
+                    const secs = timerSeconds % 60;
+                    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function buildPaletteGrid() {
+            paletteGrid.innerHTML = '';
+            quizData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.type = "button";
+                btn.textContent = idx + 1;
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center bg-slate-100 text-slate-700 border-slate-200 hover:border-emerald-400";
+                
+                btn.addEventListener('click', () => {
+                    renderQuestion(idx);
+                });
+
+                paletteGrid.appendChild(btn);
+            });
+        }
+
+        function renderQuestion(index) {
+            currentQuestionIndex = index;
+            visitedQuestions[index] = true;
+
+            const qData = quizData[index];
+
+            progressText.textContent = `${index + 1}/20`;
+            qProgressCount.textContent = `Question ${index + 1} of 20`;
+            const pct = Math.round(((index + 1) / quizData.length) * 100);
+            qProgressPercent.textContent = `${pct}% Completed`;
+            progressBarFill.style.width = `${pct}%`;
+
+            questionBadge.textContent = `Q${index + 1}`;
+            questionText.textContent = qData.question;
+
+            // Update Flag button styling
+            if (flaggedQuestions[index]) {
+                flagBtn.className = "shrink-0 text-purple-700 bg-purple-100 hover:bg-purple-200 p-2.5 rounded-xl border border-purple-300 transition text-xs flex items-center gap-1.5 font-bold";
+                flagIcon.className = "fa-solid fa-bookmark text-sm";
+                flagText.textContent = "Flagged";
+            } else {
+                flagBtn.className = "shrink-0 text-slate-500 hover:text-purple-600 bg-slate-50 hover:bg-purple-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium";
+                flagIcon.className = "fa-regular fa-bookmark text-sm";
+                flagText.textContent = "Mark";
+            }
+
+            optionsContainer.innerHTML = '';
+            const userSelected = userAnswers[index];
+
+            qData.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.type = "button";
+                optBtn.className = "w-full text-left p-3.5 sm:p-4 rounded-xl border text-sm sm:text-base font-medium transition-all duration-150 flex items-start gap-3 group relative ";
+
+                const labelLetter = String.fromCharCode(65 + optIdx);
+
+                let borderStyle = "border-slate-200 bg-white hover:border-emerald-300 hover:bg-slate-50 text-slate-800";
+                let badgeStyle = "bg-slate-100 text-slate-600 group-hover:bg-emerald-100 group-hover:text-emerald-700";
+
+                if (userSelected !== null) {
+                    if (quizMode === 'instant') {
+                        if (optIdx === qData.correct) {
+                            borderStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold";
+                            badgeStyle = "bg-emerald-500 text-white";
+                        } else if (optIdx === userSelected) {
+                            borderStyle = "border-rose-500 bg-rose-50 text-rose-900 font-bold";
+                            badgeStyle = "bg-rose-500 text-white";
+                        } else {
+                            borderStyle = "border-slate-200 bg-white opacity-50 text-slate-500";
+                        }
+                    } else {
+                        if (optIdx === userSelected) {
+                            borderStyle = "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-1 ring-emerald-600";
+                            badgeStyle = "bg-emerald-600 text-white";
+                        }
+                    }
+                }
+
+                optBtn.className += borderStyle;
+
+                optBtn.innerHTML = `
+                    <span class="w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 transition ${badgeStyle}">
+                        ${labelLetter}
+                    </span>
+                    <span class="flex-grow pt-0.5 leading-snug">${optText}</span>
+                `;
+
+                optBtn.addEventListener('click', () => {
+                    selectOption(index, optIdx);
+                });
+
+                optionsContainer.appendChild(optBtn);
+            });
+
+            // Instant Practice Mode Feedback Box
+            if (quizMode === 'instant' && userSelected !== null) {
+                explanationBox.classList.remove('hidden');
+                if (userSelected === qData.correct) {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-emerald-50 border-emerald-200 text-emerald-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Correct Answer!`;
+                } else {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-rose-50 border-rose-200 text-rose-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> Incorrect Answer`;
+                }
+                feedbackExplanation.textContent = qData.explanation;
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+
+            if (index === quizData.length - 1) {
+                nextBtn.classList.add('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+
+            updatePaletteGrid();
+            renderMath();
+        }
+
+        function updatePaletteGrid() {
+            const answeredCount = userAnswers.filter(ans => ans !== null).length;
+            answeredCountBadge.textContent = `${answeredCount}/20`;
+
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (!btn) return;
+
+                const isCurrent = idx === currentQuestionIndex;
+                const isAnswered = userAnswers[idx] !== null;
+                const isVisited = visitedQuestions[idx];
+                const isFlagged = flaggedQuestions[idx];
+
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center relative ";
+
+                if (isCurrent) {
+                    btn.classList.add('ring-2', 'ring-emerald-600', 'ring-offset-2');
+                }
+
+                if (isFlagged) {
+                    btn.classList.add('bg-purple-500', 'text-white', 'border-purple-600');
+                } else if (isAnswered) {
+                    btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                } else if (isVisited) {
+                    btn.classList.add('bg-amber-400', 'text-amber-950', 'border-amber-500');
+                } else {
+                    btn.classList.add('bg-slate-200', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-300');
+                }
+            });
+        }
+
+        function selectOption(qIdx, optionIdx) {
+            userAnswers[qIdx] = optionIdx;
+            renderQuestion(qIdx);
+        }
+
+        function clearCurrentAnswer() {
+            userAnswers[currentQuestionIndex] = null;
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function toggleFlagCurrentQuestion() {
+            flaggedQuestions[currentQuestionIndex] = !flaggedQuestions[currentQuestionIndex];
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                renderQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                renderQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // SUBMIT AND RESULTS LOGIC
+        function openSubmitConfirmationModal() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const unattemptedCount = quizData.length - answeredCount;
+            const flaggedCount = flaggedQuestions.filter(f => f).length;
+
+            let summaryHtml = `
+                <div class="flex justify-between items-center">
+                    <span>Total Questions:</span>
+                    <strong class="text-slate-900">20</strong>
+                </div>
+                <div class="flex justify-between items-center text-emerald-700">
+                    <span>Answered Questions:</span>
+                    <strong>${answeredCount}</strong>
+                </div>
+                <div class="flex justify-between items-center text-amber-700">
+                    <span>Unattempted Questions:</span>
+                    <strong>${unattemptedCount}</strong>
+                </div>
+            `;
+
+            if (flaggedCount > 0) {
+                summaryHtml += `
+                    <div class="flex justify-between items-center text-purple-700 pt-1 border-t border-slate-200">
+                        <span>Flagged for Review:</span>
+                        <strong>${flaggedCount}</strong>
+                    </div>
+                `;
+            }
+
+            if (unattemptedCount > 0) {
+                summaryHtml += `
+                    <p class="text-xs text-amber-600 font-semibold pt-2 border-t border-slate-200">
+                        ⚠️ You have ${unattemptedCount} unattempted question(s). Are you sure you want to finalize submission?
+                    </p>
+                `;
+            } else {
+                summaryHtml += `
+                    <p class="text-xs text-emerald-600 font-semibold pt-2 border-t border-slate-200">
+                        🎉 Great job! You have answered all 20 questions.
+                    </p>
+                `;
+            }
+
+            modalSummaryText.innerHTML = summaryHtml;
+            submitModal.classList.remove('hidden');
+        }
+
+        function closeSubmitConfirmationModal() {
+            submitModal.classList.add('hidden');
+        }
+
+        function finalizeAndSubmitQuiz() {
+            clearInterval(timerInterval);
+            closeSubmitConfirmationModal();
+
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const totalScore = correctCount;
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            const attemptedCount = correctCount + incorrectCount;
+            const accuracy = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
+
+            document.getElementById('final-score').textContent = totalScore;
+            document.getElementById('final-percentage').textContent = `${percentage}%`;
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('final-time').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            document.getElementById('count-correct').textContent = correctCount;
+            document.getElementById('count-incorrect').textContent = incorrectCount;
+            document.getElementById('count-unattempted').textContent = unattemptedCount;
+
+            const remarkEl = document.getElementById('final-remark');
+            if (percentage >= 90) {
+                remarkEl.textContent = "Grade A+: Supervised ML Expert! 🧠🏆";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 75) {
+                remarkEl.textContent = "Grade A: Great Command of Classification & Regression! 🌟";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 50) {
+                remarkEl.textContent = "Grade B: Good Attempt, Review Equations & Metrics! 👍";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-amber-100 text-amber-800 border border-amber-300";
+            } else {
+                remarkEl.textContent = "Needs Revision of Supervised ML Concepts! 📖";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300";
+            }
+
+            renderReviewList('all');
+        }
+
+        function renderReviewList(filter = 'all') {
+            reviewList.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const isUnattempted = userAns === null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || isUnattempted)) return;
+                if (filter === 'unattempted' && !isUnattempted) return;
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 border border-slate-200/90 rounded-xl p-4 sm:p-5 space-y-3";
+
+                let statusBadge = '';
+                if (isUnattempted) {
+                    statusBadge = `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold px-2.5 py-1 rounded-md">Unattempted</span>`;
+                } else if (isCorrect) {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct</span>`;
+                } else {
+                    statusBadge = `<span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Incorrect</span>`;
+                }
+
+                let optionsHtml = '';
+                q.options.forEach((optText, optIdx) => {
+                    const letter = String.fromCharCode(65 + optIdx);
+                    let optStyle = "text-slate-600 border-slate-200 bg-white";
+
+                    if (optIdx === q.correct) {
+                        optStyle = "text-emerald-950 border-emerald-300 bg-emerald-50/80 font-bold";
+                    } else if (optIdx === userAns && !isCorrect) {
+                        optStyle = "text-rose-950 border-rose-300 bg-rose-50/80 font-bold";
+                    }
+
+                    optionsHtml += `
+                        <div class="p-2.5 rounded-lg border text-xs sm:text-sm flex items-start gap-2.5 ${optStyle}">
+                            <span class="font-bold shrink-0">${letter}.</span>
+                            <span class="flex-grow">${optText}</span>
+                            ${optIdx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 shrink-0 my-auto text-sm" title="Correct Answer"></i>' : ''}
+                            ${(optIdx === userAns && !isCorrect) ? '<i class="fa-solid fa-circle-xmark text-rose-600 shrink-0 my-auto text-sm" title="Your Choice"></i>' : ''}
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-2.5">
+                            <span class="bg-slate-200 text-slate-800 font-bold text-xs px-2 py-0.5 rounded mt-0.5">Q${idx + 1}</span>
+                            <h4 class="font-bold text-sm sm:text-base text-slate-900 leading-snug">${q.question}</h4>
+                        </div>
+                        <div class="shrink-0">${statusBadge}</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        ${optionsHtml}
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
+                        <div class="font-bold text-slate-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span>Concept Explanation:</span>
+                        </div>
+                        <p class="leading-relaxed text-slate-600">${q.explanation}</p>
+                    </div>
+                `;
+
+                reviewList.appendChild(card);
+            });
+
+            if (reviewList.children.length === 0) {
+                reviewList.innerHTML = `
+                    <div class="text-center py-8 text-slate-500 text-sm">
+                        No questions match the selected filter criteria.
+                    </div>
+                `;
+            }
+
+            renderMath();
+        }
+
+        function resetQuizState() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            visitedQuestions = new Array(quizData.length).fill(false);
+            flaggedQuestions = new Array(quizData.length).fill(false);
+
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            headerStats.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
