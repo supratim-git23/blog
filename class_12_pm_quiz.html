@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 AI & Data Science - Performance Metrics & Cross Validation Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration and Engine -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-emerald-600 selection:text-white">
+
+    <!-- Header Banner -->
+    <header class="bg-gradient-to-r from-slate-900 via-emerald-950 to-slate-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+                    <i class="fa-solid fa-chart-pie text-2xl text-emerald-400"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight leading-snug">Class 12 AI & Data Science</h1>
+                    <p class="text-xs text-emerald-200 font-medium">Performance Metrics & K-Fold Cross Validation Quiz</p>
+                </div>
+            </div>
+
+            <!-- Quiz Timer & Progress Stats -->
+            <div id="header-stats" class="hidden flex items-center gap-3 ml-auto">
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-regular fa-clock text-amber-300"></i>
+                    <span id="timer-display" class="font-mono font-bold tracking-wider text-amber-100">00:00</span>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-emerald-300"></i>
+                    <span id="progress-text" class="font-semibold">0/20</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 flex-grow w-full">
+
+        <!-- ================= 1. START SCREEN ================= -->
+        <section id="start-screen" class="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-10 max-w-2xl mx-auto text-center space-y-6">
+            <div class="w-20 h-20 bg-emerald-50 rounded-2xl flex items-center justify-center mx-auto text-emerald-600 text-3xl shadow-inner border border-emerald-100">
+                <i class="fa-solid fa-calculator"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">ML Performance Metrics & Validation</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Test your understanding of model evaluation for Class 12 AI & Data Science. Topics include: Confusion Matrix, True/False Positives & Negatives, Accuracy, Precision, Recall, Sensitivity, Specificity, \(F_1\)-Measure, and \(K\)-Fold Cross Validation.
+                </p>
+            </div>
+
+            <!-- Overview Stats Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-left bg-slate-50 p-4 rounded-xl border border-slate-200/80 text-xs sm:text-sm">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-circle-question text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">20 Questions</div>
+                        <div class="text-slate-500 text-[11px]">Multiple Choice</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-square-root-variable text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">MathJax Equations</div>
+                        <div class="text-slate-500 text-[11px]">\(\text{Precision} = \frac{TP}{TP + FP}\)</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-graduation-cap text-emerald-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">Class 12 AI & DS</div>
+                        <div class="text-slate-500 text-[11px]">Board Aligned</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mode & Timer Options Grid -->
+            <div class="space-y-4 text-left">
+                <!-- Mode Selector -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Practice Mode:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label id="mode-exam-label" class="cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600">
+                            <input type="radio" name="quiz-mode" value="exam" checked class="mt-1 accent-emerald-600">
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Standard Exam Mode</div>
+                                <p class="text-xs text-slate-500 mt-0.5">Answer all questions and submit to view your score, accuracy analytics, and complete solution review.</p>
+                            </div>
+                        </label>
+
+                        <label id="mode-instant-label" class="cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300">
+                            <input type="radio" name="quiz-mode" value="instant" class="mt-1 accent-emerald-600">
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Instant Practice Mode</div>
+                                <p class="text-xs text-slate-500 mt-0.5">Receive immediate feedback, correct option highlights, and mathematical explanations right after picking an answer.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Timer Selection -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Time Limit:</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="none" checked class="accent-emerald-600">
+                            <span>No Limit</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="15" class="accent-emerald-600">
+                            <span>15 Minutes</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="20" class="accent-emerald-600">
+                            <span>20 Minutes</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-emerald-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="30" class="accent-emerald-600">
+                            <span>30 Minutes</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="start-btn" type="button" class="w-full py-3.5 px-6 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/30 transition duration-200 flex items-center justify-center gap-2 text-base cursor-pointer">
+                <span>Start Performance Quiz</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- ================= 2. QUIZ INTERFACE SCREEN ================= -->
+        <section id="quiz-screen" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Main Question Area (Left - 3 columns) -->
+            <div class="lg:col-span-3 space-y-4">
+
+                <!-- Progress Header Bar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                        <span id="q-progress-count">Question 1 of 20</span>
+                        <span id="q-progress-percent" class="text-emerald-600">5% Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-emerald-600 h-full w-[5%] transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Main Question Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                    
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <span id="question-number-badge" class="bg-emerald-100 text-emerald-800 font-bold text-xs sm:text-sm px-3 py-1 rounded-lg shrink-0 mt-0.5">
+                                Q1
+                            </span>
+                            <h2 id="question-text" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                                Question text loading...
+                            </h2>
+                        </div>
+                        
+                        <!-- Flag for Review Button -->
+                        <button id="flag-btn" type="button" class="shrink-0 text-slate-400 hover:text-emerald-600 bg-slate-50 hover:bg-emerald-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium" title="Flag this question to review later">
+                            <i class="fa-regular fa-bookmark text-sm" id="flag-icon"></i>
+                            <span class="hidden sm:inline" id="flag-text">Mark</span>
+                        </button>
+                    </div>
+
+                    <!-- Options Container -->
+                    <div id="options-container" class="space-y-3">
+                        <!-- Dynamic options -->
+                    </div>
+
+                    <!-- Instant Feedback Explanation Box -->
+                    <div id="explanation-box" class="hidden rounded-xl p-4 border text-sm space-y-1.5">
+                        <div class="flex items-center gap-2 font-bold" id="feedback-title"></div>
+                        <p id="feedback-explanation" class="text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                </div>
+
+                <!-- Footer Action Controls -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <div class="flex items-center gap-2">
+                        <button id="prev-btn" type="button" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-sm transition shadow-sm flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button id="clear-btn" type="button" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5" title="Clear chosen answer for this question">
+                            <i class="fa-solid fa-eraser"></i>
+                            <span>Clear Answer</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2 ml-auto">
+                        <button id="next-btn" type="button" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-500/20 flex items-center gap-2">
+                            <span>Next</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <button id="submit-quiz-btn" type="button" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-indigo-600/20 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Submit Quiz</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Question Palette Sidebar (Right - 1 column) -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 sticky top-20 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-border-all text-emerald-600"></i>
+                            Question Palette
+                        </h3>
+                        <span id="answered-count-badge" class="text-xs bg-slate-100 font-semibold text-slate-600 px-2 py-0.5 rounded-full">
+                            0/20
+                        </span>
+                    </div>
+
+                    <!-- Question Number Grid -->
+                    <div id="palette-grid" class="grid grid-cols-5 gap-2 max-h-60 lg:max-h-none overflow-y-auto custom-scrollbar p-0.5">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-medium">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-emerald-500 border border-emerald-600 inline-block"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-amber-400 border border-amber-500 inline-block"></span>
+                            <span>Unanswered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-indigo-500 border border-indigo-600 inline-block"></span>
+                            <span>Flagged</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-slate-200 border border-slate-300 inline-block"></span>
+                            <span>Not Visited</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= 3. FINAL RESULTS SCREEN ================= -->
+        <section id="results-screen" class="hidden space-y-8 max-w-4xl mx-auto">
+            
+            <!-- Summary Card -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-emerald-600 via-teal-500 to-indigo-600"></div>
+
+                <div class="space-y-1 pt-2">
+                    <span class="text-xs font-extrabold tracking-widest text-emerald-600 uppercase">Assessment Complete</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Your Performance Summary</h2>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 max-w-3xl mx-auto">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Total Score</span>
+                        <div class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                            <span id="final-score">0</span> <span class="text-sm text-slate-400 font-normal">/ 20</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Percentage</span>
+                        <div id="final-percentage" class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Accuracy</span>
+                        <div id="final-accuracy" class="text-2xl sm:text-3xl font-black text-teal-600 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Time Elapsed</span>
+                        <div id="final-time" class="text-xl sm:text-2xl font-black text-slate-800 mt-1.5 font-mono">
+                            00:00
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Counts -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-bold pt-1">
+                    <div class="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Correct: <span id="count-correct">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Incorrect: <span id="count-incorrect">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
+                        <i class="fa-solid fa-circle-minus"></i>
+                        <span>Unattempted: <span id="count-unattempted">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Remark Badge -->
+                <div id="remark-badge-container" class="pt-1">
+                    <span id="final-remark" class="inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-200">
+                        Grade: Remark
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-3 pt-2">
+                    <button id="restart-btn" type="button" class="px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-lg shadow-emerald-500/25 transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Retake Quiz</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Review & Solutions Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-extrabold text-slate-900">Question-by-Question Detailed Review</h3>
+                        <p class="text-xs text-slate-500">Examine your selected options alongside correct answers and step-by-step mathematical explanations.</p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold" id="review-filters">
+                        <button type="button" data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition">All (20)</button>
+                        <button type="button" data-filter="correct" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Correct</button>
+                        <button type="button" data-filter="incorrect" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Incorrect</button>
+                        <button type="button" data-filter="unattempted" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Unattempted</button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Review Cards Container -->
+                <div id="review-list" class="space-y-4">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= SUBMIT CONFIRMATION MODAL ================= -->
+    <div id="submit-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 space-y-5">
+            <div class="flex items-center gap-3 text-amber-600">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-extrabold text-slate-900">Confirm Submission</h3>
+                    <p class="text-xs text-slate-500">Check your attempt summary before submitting your test.</p>
+                </div>
+            </div>
+
+            <div id="modal-summary-text" class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                <!-- Injected dynamically -->
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button id="modal-cancel-btn" type="button" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition">
+                    Continue Quiz
+                </button>
+                <button id="modal-confirm-btn" type="button" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-600/20">
+                    Yes, Submit Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-6">
+        <div class="max-w-6xl mx-auto px-4">
+            Class 12 Artificial Intelligence & Data Science • Measuring ML Performance & K-Fold Cross Validation
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        // -------------------------------------------------------------
+        // 20 CLASS 12 AI & DS PERFORMANCE METRICS & CROSS-VALIDATION DATASET
+        // -------------------------------------------------------------
+        const quizData = [
+            {
+                id: 1,
+                question: "In a binary confusion matrix, which cell represents the count of actual positive instances that were correctly predicted as positive by the model?",
+                options: [
+                    "True Negative (TN)",
+                    "False Positive (FP)",
+                    "True Positive (TP)",
+                    "False Negative (FN)"
+                ],
+                correct: 2,
+                explanation: "True Positives (TP) correspond to positive instances correctly classified as positive by the machine learning model."
+            },
+            {
+                id: 2,
+                question: "A spam filter incorrectly labels a legitimate work email as 'Spam' and sends it to the junk folder. In the confusion matrix, this is known as a:",
+                options: [
+                    "True Positive (TP)",
+                    "False Positive (FP / Type I Error)",
+                    "True Negative (TN)",
+                    "False Negative (FN / Type II Error)"
+                ],
+                correct: 1,
+                explanation: "A False Positive (FP), or Type I Error, occurs when the model predicts a positive outcome for a negative instance (predicting 'Spam' for a genuine email)."
+            },
+            {
+                id: 3,
+                question: "In medical diagnostics, a test classifies an infected patient as healthy (negative). Which confusion matrix metric parameter captures this dangerous failure?",
+                options: [
+                    "False Positive (FP)",
+                    "True Negative (TN)",
+                    "False Negative (FN / Type II Error)",
+                    "True Positive (TP)"
+                ],
+                correct: 2,
+                explanation: "A False Negative (FN), or Type II Error, happens when a positive instance is incorrectly predicted as negative (missing a disease diagnosis)."
+            },
+            {
+                id: 4,
+                question: "Which mathematical formula correctly computes the overall **Accuracy** of a classification model using a confusion matrix?",
+                options: [
+                    "\\(\\text{Accuracy} = \\frac{TP + TN}{TP + TN + FP + FN}\\)",
+                    "\\(\\text{Accuracy} = \\frac{TP}{TP + FP}\\)",
+                    "\\(\\text{Accuracy} = \\frac{TP}{TP + FN}\\)",
+                    "\\(\\text{Accuracy} = \\frac{TN}{TN + FP}\\)"
+                ],
+                correct: 0,
+                explanation: "Accuracy measures the fraction of all correct predictions (both True Positives and True Negatives) out of the entire evaluated dataset."
+            },
+            {
+                id: 5,
+                question: "If a machine learning model evaluates 250 samples and achieves an accuracy of $0.88$ ($88\\%$), what is the **Misclassification Error Rate**?",
+                options: [
+                    "\(0.88\)",
+                    "\(0.12\) ($12\\%$)",
+                    "\(30\) samples",
+                    "\(0.22\)"
+                ],
+                correct: 1,
+                explanation: "The Misclassification Error Rate is simply the complement of accuracy: \\(\\text{Error Rate} = 1 - \\text{Accuracy} = 1 - 0.88 = 0.12\\) or \\(12\\%\\)."
+            },
+            {
+                id: 6,
+                question: "What does **Precision** measure, and what is its standard formula?",
+                options: [
+                    "Measures completeness: \\(\\frac{TP}{TP + FN}\\)",
+                    "Measures exactness/quality of positive predictions: \\(\\frac{TP}{TP + FP}\\)",
+                    "Measures proportion of correct negative predictions: \\(\\frac{TN}{TN + FP}\\)",
+                    "Measures total error: \\(\\frac{FP + FN}{Total}\\)"
+                ],
+                correct: 1,
+                explanation: "Precision evaluates exactness: \\(\\text{Precision} = \\frac{TP}{TP + FP}\\), representing the proportion of positive predictions that were actually correct."
+            },
+            {
+                id: 7,
+                question: "In which of the following real-world applications is high **Precision** prioritized over High Recall to avoid disastrous false alarms?",
+                options: [
+                    "Airport security baggage screening for weapons",
+                    "Financial transaction fraud detection or spam filtering (where blocking valid emails is costly)",
+                    "Early stage cancer screening tests",
+                    "Detecting rare contagious diseases in hospitals"
+                ],
+                correct: 1,
+                explanation: "High Precision minimizes False Positives ($FP$), ensuring that when the model flags something (like spam or fraud), it is very likely to be correct, preventing annoyance or blocked legitimate activity."
+            },
+            {
+                id: 8,
+                question: "What is **Recall** (also called **Sensitivity** or True Positive Rate) designed to measure?",
+                options: [
+                    "The ability of the classifier to find all actual positive instances: \\(\\frac{TP}{TP + FN}\\)",
+                    "The exactness of positive predictions: \\(\\frac{TP}{TP + FP}\\)",
+                    "The proportion of true negatives: \\(\\frac{TN}{TN + FP}\\)",
+                    "The overall dataset size"
+                ],
+                correct: 0,
+                explanation: "Recall measures completeness—the proportion of actual positive cases successfully identified by the model: \\(\\text{Recall} = \\frac{TP}{TP + FN}\\)."
+            },
+            {
+                id: 9,
+                question: "What is **Specificity** (True Negative Rate) defined as?",
+                options: [
+                    "\\(\\frac{TN}{TN + FP}\\)",
+                    "\\(\\frac{TN}{TN + FN}\\)",
+                    "\\(\\frac{TP}{TP + FP}\\)",
+                    "\\(\\frac{TP}{TP + TN}\\)"
+                ],
+                correct: 0,
+                explanation: "Specificity evaluates the model's ability to correctly identify actual negative cases: \\(\\text{Specificity} = \\frac{TN}{TN + FP}\\)."
+            },
+            {
+                id: 10,
+                question: "Why is high **Recall (Sensitivity)** critical in medical screening tests for life-threatening diseases?",
+                options: [
+                    "To minimize False Positives and save hospital paper costs",
+                    "To minimize False Negatives ($FN$) so that almost no infected patient is mistakenly sent home untreated",
+                    "To ensure 100% precision regardless of false alarms",
+                    "To speed up database search queries"
+                ],
+                correct: 1,
+                explanation: "In critical medical diagnosis, missing an infection ($FN$) can be fatal. High Recall ensures we catch as many true positive cases as possible."
+            },
+            {
+                id: 11,
+                question: "How is the **\\(F_1\\)-Measure (\\(F_1\\)-Score)** defined mathematically?",
+                options: [
+                    "The arithmetic mean of Precision and Recall: \\(\\frac{\\text{Precision} + \\text{Recall}}{2}\\)",
+                    "The harmonic mean of Precision and Recall: \\(2 \\cdot \\frac{\\text{Precision} \\cdot \\text{Recall}}{\\text{Precision} + \\text{Recall}}\\)",
+                    "The product of Precision and Recall",
+                    "The ratio of True Positives to False Positives"
+                ],
+                correct: 1,
+                explanation: "The \\(F_1\\)-score is the harmonic mean of Precision and Recall, providing a balanced single metric when you care about both false positives and false negatives."
+            },
+            {
+                id: 12,
+                question: "If a classification model has a Precision of $0.90$ and a Recall of $0.70$, what is its exact \\(F_1\\)-score (rounded to two decimal places)?",
+                options: [
+                    "\(0.80\)",
+                    "\(0.79\)",
+                    "\(0.63\)",
+                    "\(0.95\)"
+                ],
+                correct: 1,
+                explanation: "\\(F_1 = 2 \\times \\frac{0.90 \\times 0.70}{0.90 + 0.70} = 2 \\times \\frac{0.63}{1.60} = \\frac{1.26}{1.60} \\approx 0.7875 \\approx 0.79\\)."
+            },
+            {
+                id: 13,
+                question: "Why can **Accuracy** be a highly misleading performance metric when working with heavily imbalanced datasets (e.g., 99% negative cases and 1% positive cases)?",
+                options: [
+                    "A naive model that always predicts the majority class achieves 99% accuracy while completely failing to detect the minority class.",
+                    "Accuracy cannot be calculated when classes are imbalanced.",
+                    "Accuracy results in negative numbers.",
+                    "Accuracy requires cross-validation to be negative."
+                ],
+                correct: 0,
+                explanation: "On a 99:1 imbalanced dataset, a dummy classifier predicting only the majority class scores 99% accuracy but has 0% recall on the minority class."
+            },
+            {
+                id: 14,
+                question: "What is the primary objective of using **\\(K\\)-Fold Cross Validation**?",
+                options: [
+                    "To increase the size of the training dataset tenfold",
+                    "To obtain a reliable, unbiased estimate of model performance on unseen data and prevent overfitting to a single train-test split",
+                    "To convert unsupervised algorithms into supervised algorithms automatically",
+                    "To eliminate the need for feature scaling"
+                ],
+                correct: 1,
+                explanation: "\\(K\\)-Fold Cross Validation partitions data into \\(K\\) subsets, training and testing iteratively so every sample gets evaluated without evaluation bias."
+            },
+            {
+                id: 15,
+                question: "In **\\(5\\)-Fold Cross Validation**, how is the dataset partitioned and used across the training iterations?",
+                options: [
+                    "The dataset is split into 5 equal folds; in each of 5 rounds, 1 fold ($20\\%$) is used for validation and 4 folds ($80\\%$) are used for training.",
+                    "The dataset is trained on 1 fold and tested on 5 folds.",
+                    "The model is trained 5 times on the exact same train-test split.",
+                    "Data is split into 5 random parts with 50% overlap."
+                ],
+                correct: 0,
+                explanation: "In \\(K\\)-fold CV where \\(K=5\\), the data is divided into 5 parts. The model trains on 4 folds and validates on the remaining 1 fold, repeating this 5 times."
+            },
+            {
+                id: 16,
+                question: "How is the final performance score computed after completing all \\(K\\) iterations of a \\(K\\)-Fold Cross Validation procedure?",
+                options: [
+                    "By taking the average (mean) score of the \\(K\\) validation test evaluations",
+                    "By taking the maximum score achieved in any single fold",
+                    "By summing up the accuracies of all folds",
+                    "By using only the score from the final fold"
+                ],
+                correct: 0,
+                explanation: "The final cross-validation performance is calculated by averaging the evaluation metrics obtained across all \\(K\\) validation folds."
+            },
+            {
+                id: 17,
+                question: "Given a Confusion Matrix with \\(TP = 45\\), \\(FP = 5\\), \\(FN = 10\\), \\(TN = 40\\), what is the model's **Precision**?",
+                options: [
+                    "\\(\\frac{45}{55} \\approx 0.82\\) ($82\\$)",
+                    "\\(\\frac{45}{50} = 0.90\\) ($90\\%$)",
+                    "\\(\\frac{40}{50} = 0.80\\) ($80\\%$)",
+                    "\\(\\frac{45}{100} = 0.45\\) ($45\\%$)"
+                ],
+                correct: 1,
+                explanation: "\\(\\text{Precision} = \\frac{TP}{TP + FP} = \\frac{45}{45 + 5} = \\frac{45}{50} = 0.90\\) ($90\\$)."
+            },
+            {
+                id: 18,
+                question: "Using the same Confusion Matrix values (\\(TP = 45, FP = 5, FN = 10, TN = 40\\)), what is the model's **Recall**?",
+                options: [
+                    "\\(\\frac{45}{55} \\approx 0.82\\) ($82\\%$)",
+                    "\\(\\frac{45}{50} = 0.90\\) ($90\\%$)",
+                    "\\(\\frac{40}{50} = 0.80\\) ($80\\%$)",
+                    "\\(\\frac{40}{45} \\approx 0.89\\)"
+                ],
+                correct: 0,
+                explanation: "\\(\\text{Recall} = \\frac{TP}{TP + FN} = \\frac{45}{45 + 10} = \\frac{45}{55} \\approx 0.82\\) ($82\\%$)."
+            },
+            {
+                id: 19,
+                question: "What is the extreme special case of \\(K\\)-Fold Cross Validation where \\(K\\) equals the total number of samples \\(N\\) in the dataset?",
+                options: [
+                    "Stratified \\(K\\)-Fold CV",
+                    "Leave-One-Out Cross-Validation (LOOCV)",
+                    "Monte Carlo Cross-Validation",
+                    "Bootstrapping"
+                ],
+                correct: 1,
+                explanation: "When \\(K = N\\), each sample serves as a validation set of size 1 in turn while the remaining \\(N-1\\) samples train the model. This is Leave-One-Out Cross-Validation (LOOCV)."
+            },
+            {
+                id: 20,
+                question: "Why is **Stratified \\(K\\)-Fold Cross Validation** preferred over standard \\(K\\)-Fold CV when working with classification datasets that have imbalanced class proportions?",
+                options: [
+                    "It guarantees that every fold maintains approximately the same percentage of samples for each target class as the complete dataset.",
+                    "It removes all outliers prior to cross-validation.",
+                    "It reduces training computation time by 50%.",
+                    "It eliminates the need for computing confusion matrices."
+                ],
+                correct: 0,
+                explanation: "Stratified \\(K\\)-Fold ensures class distribution is preserved across every fold so no single fold accidentally lacks minority class samples."
+            }
+        ];
+
+        // STATE VARIABLES
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let visitedQuestions = new Array(quizData.length).fill(false);
+        let flaggedQuestions = new Array(quizData.length).fill(false);
+        let quizMode = 'exam'; // 'exam' or 'instant'
+        let timerSeconds = 0;
+        let timerTimeLimitSeconds = 0; // 0 means no limit
+        let timerInterval = null;
+
+        // DOM ELEMENTS
+        let startScreen, quizScreen, resultsScreen, submitModal;
+        let startBtn, prevBtn, nextBtn, clearBtn, flagBtn, submitQuizBtn, restartBtn;
+        let flagIcon, flagText, questionBadge, questionText, optionsContainer;
+        let progressText, qProgressCount, qProgressPercent, progressBarFill;
+        let paletteGrid, answeredCountBadge, explanationBox, feedbackTitle, feedbackExplanation;
+        let timerDisplay, headerStats, modalSummaryText, modalCancelBtn, modalConfirmBtn;
+        let reviewList;
+
+        // Helper function to safely invoke MathJax typeset
+        function triggerMathRender() {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise().catch((err) => console.error("MathJax error: ", err));
+            }
+        }
+
+        // INITIALIZATION ON DOM READY
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind DOM Elements
+            startScreen = document.getElementById('start-screen');
+            quizScreen = document.getElementById('quiz-screen');
+            resultsScreen = document.getElementById('results-screen');
+            submitModal = document.getElementById('submit-modal');
+
+            startBtn = document.getElementById('start-btn');
+            prevBtn = document.getElementById('prev-btn');
+            nextBtn = document.getElementById('next-btn');
+            clearBtn = document.getElementById('clear-btn');
+            flagBtn = document.getElementById('flag-btn');
+            submitQuizBtn = document.getElementById('submit-quiz-btn');
+            restartBtn = document.getElementById('restart-btn');
+
+            flagIcon = document.getElementById('flag-icon');
+            flagText = document.getElementById('flag-text');
+            questionBadge = document.getElementById('question-number-badge');
+            questionText = document.getElementById('question-text');
+            optionsContainer = document.getElementById('options-container');
+
+            progressText = document.getElementById('progress-text');
+            qProgressCount = document.getElementById('q-progress-count');
+            qProgressPercent = document.getElementById('q-progress-percent');
+            progressBarFill = document.getElementById('progress-bar-fill');
+
+            paletteGrid = document.getElementById('palette-grid');
+            answeredCountBadge = document.getElementById('answered-count-badge');
+            explanationBox = document.getElementById('explanation-box');
+            feedbackTitle = document.getElementById('feedback-title');
+            feedbackExplanation = document.getElementById('feedback-explanation');
+
+            timerDisplay = document.getElementById('timer-display');
+            headerStats = document.getElementById('header-stats');
+            modalSummaryText = document.getElementById('modal-summary-text');
+            modalCancelBtn = document.getElementById('modal-cancel-btn');
+            modalConfirmBtn = document.getElementById('modal-confirm-btn');
+
+            reviewList = document.getElementById('review-list');
+
+            // Attach Event Listeners
+            startBtn.addEventListener('click', startQuiz);
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            clearBtn.addEventListener('click', clearCurrentAnswer);
+            flagBtn.addEventListener('click', toggleFlagCurrentQuestion);
+            submitQuizBtn.addEventListener('click', openSubmitConfirmationModal);
+            modalCancelBtn.addEventListener('click', closeSubmitConfirmationModal);
+            modalConfirmBtn.addEventListener('click', finalizeAndSubmitQuiz);
+            restartBtn.addEventListener('click', resetQuizState);
+
+            // Filter buttons listener
+            const filterContainer = document.getElementById('review-filters');
+            if (filterContainer) {
+                filterContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.filter-btn');
+                    if (!btn) return;
+                    
+                    filterContainer.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                        b.classList.add('text-slate-600');
+                    });
+
+                    btn.classList.add('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                    btn.classList.remove('text-slate-600');
+
+                    renderReviewList(btn.dataset.filter);
+                });
+            }
+
+            // Mode selector styling updates
+            const modeRadios = document.querySelectorAll('input[name="quiz-mode"]');
+            modeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    quizMode = e.target.value;
+                    const examLabel = document.getElementById('mode-exam-label');
+                    const instantLabel = document.getElementById('mode-instant-label');
+
+                    if (quizMode === 'exam') {
+                        examLabel.className = "cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600";
+                        instantLabel.className = "cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300";
+                    } else {
+                        instantLabel.className = "cursor-pointer border-2 border-emerald-500 bg-emerald-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-600";
+                        examLabel.className = "cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-emerald-300";
+                    }
+                });
+            });
+
+            // Initial math render pass
+            triggerMathRender();
+        });
+
+        // CORE QUIZ CONTROLLER FUNCTIONS
+        function startQuiz() {
+            // Read selected timer option
+            const timerSelected = document.querySelector('input[name="timer-option"]:checked').value;
+            if (timerSelected === 'none') {
+                timerTimeLimitSeconds = 0;
+            } else {
+                timerTimeLimitSeconds = parseInt(timerSelected, 10) * 60;
+            }
+
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerStats.classList.remove('hidden');
+
+            timerSeconds = 0;
+            startTimer();
+
+            buildPaletteGrid();
+            renderQuestion(0);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+
+                if (timerTimeLimitSeconds > 0) {
+                    const remaining = timerTimeLimitSeconds - timerSeconds;
+                    if (remaining <= 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.textContent = "00:00";
+                        alert("Time limit reached! Submitting your quiz now.");
+                        finalizeAndSubmitQuiz();
+                        return;
+                    }
+                    const mins = Math.floor(remaining / 60);
+                    const secs = remaining % 60;
+                    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                } else {
+                    const mins = Math.floor(timerSeconds / 60);
+                    const secs = timerSeconds % 60;
+                    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function buildPaletteGrid() {
+            paletteGrid.innerHTML = '';
+            quizData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.type = "button";
+                btn.textContent = idx + 1;
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center bg-slate-100 text-slate-700 border-slate-200 hover:border-emerald-400";
+                
+                btn.addEventListener('click', () => {
+                    renderQuestion(idx);
+                });
+
+                paletteGrid.appendChild(btn);
+            });
+        }
+
+        function renderQuestion(index) {
+            currentQuestionIndex = index;
+            visitedQuestions[index] = true;
+
+            const qData = quizData[index];
+
+            progressText.textContent = `${index + 1}/20`;
+            qProgressCount.textContent = `Question ${index + 1} of 20`;
+            const pct = Math.round(((index + 1) / quizData.length) * 100);
+            qProgressPercent.textContent = `${pct}% Completed`;
+            progressBarFill.style.width = `${pct}%`;
+
+            questionBadge.textContent = `Q${index + 1}`;
+            questionText.textContent = qData.question;
+
+            // Update Flag button styling
+            if (flaggedQuestions[index]) {
+                flagBtn.className = "shrink-0 text-indigo-700 bg-indigo-100 hover:bg-indigo-200 p-2.5 rounded-xl border border-indigo-300 transition text-xs flex items-center gap-1.5 font-bold";
+                flagIcon.className = "fa-solid fa-bookmark text-sm";
+                flagText.textContent = "Flagged";
+            } else {
+                flagBtn.className = "shrink-0 text-slate-500 hover:text-emerald-600 bg-slate-50 hover:bg-emerald-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium";
+                flagIcon.className = "fa-regular fa-bookmark text-sm";
+                flagText.textContent = "Mark";
+            }
+
+            optionsContainer.innerHTML = '';
+            const userSelected = userAnswers[index];
+
+            qData.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.type = "button";
+                optBtn.className = "w-full text-left p-3.5 sm:p-4 rounded-xl border text-sm sm:text-base font-medium transition-all duration-150 flex items-start gap-3 group relative ";
+
+                const labelLetter = String.fromCharCode(65 + optIdx);
+
+                let borderStyle = "border-slate-200 bg-white hover:border-emerald-300 hover:bg-slate-50 text-slate-800";
+                let badgeStyle = "bg-slate-100 text-slate-600 group-hover:bg-emerald-100 group-hover:text-emerald-700";
+
+                if (userSelected !== null) {
+                    if (quizMode === 'instant') {
+                        if (optIdx === qData.correct) {
+                            borderStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold";
+                            badgeStyle = "bg-emerald-500 text-white";
+                        } else if (optIdx === userSelected) {
+                            borderStyle = "border-rose-500 bg-rose-50 text-rose-900 font-bold";
+                            badgeStyle = "bg-rose-500 text-white";
+                        } else {
+                            borderStyle = "border-slate-200 bg-white opacity-50 text-slate-500";
+                        }
+                    } else {
+                        if (optIdx === userSelected) {
+                            borderStyle = "border-emerald-600 bg-emerald-50 text-emerald-950 font-bold ring-1 ring-emerald-600";
+                            badgeStyle = "bg-emerald-600 text-white";
+                        }
+                    }
+                }
+
+                optBtn.className += borderStyle;
+
+                optBtn.innerHTML = `
+                    <span class="w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 transition ${badgeStyle}">
+                        ${labelLetter}
+                    </span>
+                    <span class="flex-grow pt-0.5 leading-snug">${optText}</span>
+                `;
+
+                optBtn.addEventListener('click', () => {
+                    selectOption(index, optIdx);
+                });
+
+                optionsContainer.appendChild(optBtn);
+            });
+
+            // Instant Practice Mode Feedback Box
+            if (quizMode === 'instant' && userSelected !== null) {
+                explanationBox.classList.remove('hidden');
+                if (userSelected === qData.correct) {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-emerald-50 border-emerald-200 text-emerald-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Correct Performance Metric Concept!`;
+                } else {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-rose-50 border-rose-200 text-rose-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> Incorrect Choice`;
+                }
+                feedbackExplanation.textContent = qData.explanation;
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+
+            if (index === quizData.length - 1) {
+                nextBtn.classList.add('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+
+            updatePaletteGrid();
+            triggerMathRender();
+        }
+
+        function updatePaletteGrid() {
+            const answeredCount = userAnswers.filter(ans => ans !== null).length;
+            answeredCountBadge.textContent = `${answeredCount}/20`;
+
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (!btn) return;
+
+                const isCurrent = idx === currentQuestionIndex;
+                const isAnswered = userAnswers[idx] !== null;
+                const isVisited = visitedQuestions[idx];
+                const isFlagged = flaggedQuestions[idx];
+
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center relative ";
+
+                if (isCurrent) {
+                    btn.classList.add('ring-2', 'ring-emerald-600', 'ring-offset-2');
+                }
+
+                if (isFlagged) {
+                    btn.classList.add('bg-indigo-600', 'text-white', 'border-indigo-700');
+                } else if (isAnswered) {
+                    btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                } else if (isVisited) {
+                    btn.classList.add('bg-amber-400', 'text-amber-950', 'border-amber-500');
+                } else {
+                    btn.classList.add('bg-slate-200', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-300');
+                }
+            });
+        }
+
+        function selectOption(qIdx, optionIdx) {
+            userAnswers[qIdx] = optionIdx;
+            renderQuestion(qIdx);
+        }
+
+        function clearCurrentAnswer() {
+            userAnswers[currentQuestionIndex] = null;
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function toggleFlagCurrentQuestion() {
+            flaggedQuestions[currentQuestionIndex] = !flaggedQuestions[currentQuestionIndex];
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                renderQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                renderQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // SUBMIT AND RESULTS LOGIC
+        function openSubmitConfirmationModal() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const unattemptedCount = quizData.length - answeredCount;
+            const flaggedCount = flaggedQuestions.filter(f => f).length;
+
+            let summaryHtml = `
+                <div class="flex justify-between items-center">
+                    <span>Total Questions:</span>
+                    <strong class="text-slate-900">20</strong>
+                </div>
+                <div class="flex justify-between items-center text-emerald-700">
+                    <span>Answered Questions:</span>
+                    <strong>${answeredCount}</strong>
+                </div>
+                <div class="flex justify-between items-center text-amber-700">
+                    <span>Unattempted Questions:</span>
+                    <strong>${unattemptedCount}</strong>
+                </div>
+            `;
+
+            if (flaggedCount > 0) {
+                summaryHtml += `
+                    <div class="flex justify-between items-center text-indigo-700 pt-1 border-t border-slate-200">
+                        <span>Flagged for Review:</span>
+                        <strong>${flaggedCount}</strong>
+                    </div>
+                `;
+            }
+
+            if (unattemptedCount > 0) {
+                summaryHtml += `
+                    <p class="text-xs text-amber-600 font-semibold pt-2 border-t border-slate-200">
+                        ⚠️ You have ${unattemptedCount} unattempted question(s). Are you sure you want to submit?
+                    </p>
+                `;
+            } else {
+                summaryHtml += `
+                    <p class="text-xs text-emerald-600 font-semibold pt-2 border-t border-slate-200">
+                        🎉 Great job! You have answered all 20 questions.
+                    </p>
+                `;
+            }
+
+            modalSummaryText.innerHTML = summaryHtml;
+            submitModal.classList.remove('hidden');
+        }
+
+        function closeSubmitConfirmationModal() {
+            submitModal.classList.add('hidden');
+        }
+
+        function finalizeAndSubmitQuiz() {
+            clearInterval(timerInterval);
+            closeSubmitConfirmationModal();
+
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const totalScore = correctCount;
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            const attemptedCount = correctCount + incorrectCount;
+            const accuracy = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
+
+            document.getElementById('final-score').textContent = totalScore;
+            document.getElementById('final-percentage').textContent = `${percentage}%`;
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('final-time').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            document.getElementById('count-correct').textContent = correctCount;
+            document.getElementById('count-incorrect').textContent = incorrectCount;
+            document.getElementById('count-unattempted').textContent = unattemptedCount;
+
+            const remarkEl = document.getElementById('final-remark');
+            if (percentage >= 90) {
+                remarkEl.textContent = "Grade A+: Performance Metrics & Cross-Validation Master! 🏆";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 75) {
+                remarkEl.textContent = "Grade A: Strong Command of Confusion Matrix & F1-Scores! 🌟";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 50) {
+                remarkEl.textContent = "Grade B: Good Effort! Review Precision, Recall & K-Fold Formulas 👍";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-amber-100 text-amber-800 border border-amber-200";
+            } else {
+                remarkEl.textContent = "Needs Revision of Evaluation Metrics Fundamentals! 📖";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-200";
+            }
+
+            renderReviewList('all');
+        }
+
+        function renderReviewList(filter = 'all') {
+            reviewList.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const isUnattempted = userAns === null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || isUnattempted)) return;
+                if (filter === 'unattempted' && !isUnattempted) return;
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 border border-slate-200/90 rounded-xl p-4 sm:p-5 space-y-3";
+
+                let statusBadge = '';
+                if (isUnattempted) {
+                    statusBadge = `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold px-2.5 py-1 rounded-md">Unattempted</span>`;
+                } else if (isCorrect) {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct</span>`;
+                } else {
+                    statusBadge = `<span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Incorrect</span>`;
+                }
+
+                let optionsHtml = '';
+                q.options.forEach((optText, optIdx) => {
+                    const letter = String.fromCharCode(65 + optIdx);
+                    let optStyle = "text-slate-600 border-slate-200 bg-white";
+
+                    if (optIdx === q.correct) {
+                        optStyle = "text-emerald-950 border-emerald-300 bg-emerald-50/80 font-bold";
+                    } else if (optIdx === userAns && !isCorrect) {
+                        optStyle = "text-rose-950 border-rose-300 bg-rose-50/80 font-bold";
+                    }
+
+                    optionsHtml += `
+                        <div class="p-2.5 rounded-lg border text-xs sm:text-sm flex items-start gap-2.5 ${optStyle}">
+                            <span class="font-bold shrink-0">${letter}.</span>
+                            <span class="flex-grow">${optText}</span>
+                            ${optIdx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 shrink-0 my-auto text-sm" title="Correct Option"></i>' : ''}
+                            ${(optIdx === userAns && !isCorrect) ? '<i class="fa-solid fa-circle-xmark text-rose-600 shrink-0 my-auto text-sm" title="Your Choice"></i>' : ''}
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-2.5">
+                            <span class="bg-slate-200 text-slate-800 font-bold text-xs px-2 py-0.5 rounded mt-0.5">Q${idx + 1}</span>
+                            <h4 class="font-bold text-sm sm:text-base text-slate-900 leading-snug">${q.question}</h4>
+                        </div>
+                        <div class="shrink-0">${statusBadge}</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        ${optionsHtml}
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
+                        <div class="font-bold text-slate-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span>Concept Explanation & Mathematical Insight:</span>
+                        </div>
+                        <p class="leading-relaxed text-slate-600">${q.explanation}</p>
+                    </div>
+                `;
+
+                reviewList.appendChild(card);
+            });
+
+            if (reviewList.children.length === 0) {
+                reviewList.innerHTML = `
+                    <div class="text-center py-8 text-slate-500 text-sm">
+                        No questions found matching the selected review filter.
+                    </div>
+                `;
+            }
+
+            triggerMathRender();
+        }
+
+        function resetQuizState() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            visitedQuestions = new Array(quizData.length).fill(false);
+            flaggedQuestions = new Array(quizData.length).fill(false);
+
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            headerStats.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

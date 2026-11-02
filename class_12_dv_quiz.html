@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class 12 AI & Data Science - Data Visualization Quiz</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- MathJax Configuration and Engine -->
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['\\(', '\\)'], ['$', '$']],
+                displayMath: [['\\[', '\\]'], ['$$', '$$']]
+            },
+            svg: {
+                fontCache: 'global'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-blue-500 selection:text-white">
+
+    <!-- Header Banner -->
+    <header class="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white shadow-lg sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center space-x-3">
+                <div class="bg-white/10 p-2 rounded-xl backdrop-blur-md border border-white/20">
+                    <i class="fa-solid fa-chart-column text-2xl text-blue-400"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg tracking-tight leading-snug">Class 12 AI & Data Science</h1>
+                    <p class="text-xs text-blue-200 font-medium">Data Visualization Techniques & Platforms Quiz</p>
+                </div>
+            </div>
+
+            <!-- Quiz Timer & Progress Stats -->
+            <div id="header-stats" class="hidden flex items-center gap-3 ml-auto">
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-regular fa-clock text-amber-300"></i>
+                    <span id="timer-display" class="font-mono font-bold tracking-wider text-amber-100">00:00</span>
+                </div>
+                <div class="bg-black/30 backdrop-blur-md px-3 py-1.5 rounded-lg border border-white/10 text-xs sm:text-sm flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-blue-300"></i>
+                    <span id="progress-text" class="font-semibold">0/20</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-6xl mx-auto px-4 py-6 sm:py-8 flex-grow w-full">
+
+        <!-- ================= 1. START SCREEN ================= -->
+        <section id="start-screen" class="bg-white rounded-2xl shadow-xl border border-slate-200/80 p-6 sm:p-10 max-w-2xl mx-auto text-center space-y-6">
+            <div class="w-20 h-20 bg-blue-50 rounded-2xl flex items-center justify-center mx-auto text-blue-600 text-3xl shadow-inner border border-blue-100">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            
+            <div class="space-y-2">
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Data Visualization Quiz</h2>
+                <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                    Test your understanding of data visualization concepts in AI & Data Science. Topics include: Need for Visualization, 2D Plots (Line, Bar, Box, Scatter, Bubble, Heatmaps, Treemaps, Geospatial), Pairwise Scatter Plots, 3D Plots (Surface, Contour), and platforms like Tableau and Google Charts.
+                </p>
+            </div>
+
+            <!-- Overview Stats Grid -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-left bg-slate-50 p-4 rounded-xl border border-slate-200/80 text-xs sm:text-sm">
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-circle-question text-blue-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">20 Questions</div>
+                        <div class="text-slate-500 text-[11px]">Multiple Choice</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5">
+                    <i class="fa-solid fa-square-root-variable text-blue-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">MathJax Logic</div>
+                        <div class="text-slate-500 text-[11px]">$$\text{IQR}, f(x,y)=c$$</div>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2.5 col-span-2 sm:col-span-1">
+                    <i class="fa-solid fa-graduation-cap text-blue-600 text-base"></i>
+                    <div>
+                        <div class="font-bold text-slate-900">Class 12 AI & DS</div>
+                        <div class="text-slate-500 text-[11px]">Board Aligned</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mode & Timer Options Grid -->
+            <div class="space-y-4 text-left">
+                <!-- Mode Selector -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Practice Mode:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <label id="mode-exam-label" class="cursor-pointer border-2 border-blue-500 bg-blue-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-blue-600">
+                            <input type="radio" name="quiz-mode" value="exam" checked class="mt-1 accent-blue-600">
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Standard Exam Mode</div>
+                                <p class="text-xs text-slate-500 mt-0.5">Answer all questions and submit to view your total score, accuracy analytics, and complete solution review.</p>
+                            </div>
+                        </label>
+
+                        <label id="mode-instant-label" class="cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-blue-300">
+                            <input type="radio" name="quiz-mode" value="instant" class="mt-1 accent-blue-600">
+                            <div>
+                                <div class="font-bold text-sm text-slate-900">Instant Practice Mode</div>
+                                <p class="text-xs text-slate-500 mt-0.5">Receive immediate feedback, correct option highlight, and technical explanations right after picking an answer.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Timer Selection -->
+                <div class="space-y-2">
+                    <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider">Select Time Limit:</label>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-blue-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="none" checked class="accent-blue-600">
+                            <span>No Limit</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-blue-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="15" class="accent-blue-600">
+                            <span>15 Minutes</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-blue-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="20" class="accent-blue-600">
+                            <span>20 Minutes</span>
+                        </label>
+                        <label class="cursor-pointer border border-slate-200 p-2.5 rounded-xl text-center hover:border-blue-400 bg-white text-xs font-bold flex items-center justify-center gap-1.5">
+                            <input type="radio" name="timer-option" value="30" class="accent-blue-600">
+                            <span>30 Minutes</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <button id="start-btn" type="button" class="w-full py-3.5 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/30 transition duration-200 flex items-center justify-center gap-2 text-base cursor-pointer">
+                <span>Start Data Visualization Quiz</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </section>
+
+        <!-- ================= 2. QUIZ INTERFACE SCREEN ================= -->
+        <section id="quiz-screen" class="hidden grid grid-cols-1 lg:grid-cols-4 gap-6">
+
+            <!-- Main Question Area (Left - 3 columns) -->
+            <div class="lg:col-span-3 space-y-4">
+
+                <!-- Progress Header Bar -->
+                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 space-y-2">
+                    <div class="flex justify-between items-center text-xs font-bold text-slate-600">
+                        <span id="q-progress-count">Question 1 of 20</span>
+                        <span id="q-progress-percent" class="text-blue-600">5% Completed</span>
+                    </div>
+                    <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden">
+                        <div id="progress-bar-fill" class="bg-blue-600 h-full w-[5%] transition-all duration-300"></div>
+                    </div>
+                </div>
+
+                <!-- Main Question Card -->
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                    
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-3">
+                            <span id="question-number-badge" class="bg-blue-100 text-blue-800 font-bold text-xs sm:text-sm px-3 py-1 rounded-lg shrink-0 mt-0.5">
+                                Q1
+                            </span>
+                            <h2 id="question-text" class="text-base sm:text-lg font-bold text-slate-900 leading-snug">
+                                Question text loading...
+                            </h2>
+                        </div>
+                        
+                        <!-- Flag for Review Button -->
+                        <button id="flag-btn" type="button" class="shrink-0 text-slate-400 hover:text-purple-600 bg-slate-50 hover:bg-purple-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium" title="Flag this question to review later">
+                            <i class="fa-regular fa-bookmark text-sm" id="flag-icon"></i>
+                            <span class="hidden sm:inline" id="flag-text">Mark</span>
+                        </button>
+                    </div>
+
+                    <!-- Options Container -->
+                    <div id="options-container" class="space-y-3">
+                        <!-- Dynamic options -->
+                    </div>
+
+                    <!-- Instant Feedback Explanation Box -->
+                    <div id="explanation-box" class="hidden rounded-xl p-4 border text-sm space-y-1.5">
+                        <div class="flex items-center gap-2 font-bold" id="feedback-title"></div>
+                        <p id="feedback-explanation" class="text-slate-700 leading-relaxed"></p>
+                    </div>
+
+                </div>
+
+                <!-- Footer Action Controls -->
+                <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+                    <div class="flex items-center gap-2">
+                        <button id="prev-btn" type="button" class="px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-100 text-slate-700 font-bold rounded-xl text-sm transition shadow-sm flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed">
+                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button id="clear-btn" type="button" class="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-600 font-semibold rounded-xl text-xs sm:text-sm transition flex items-center gap-1.5" title="Clear chosen answer for this question">
+                            <i class="fa-solid fa-eraser"></i>
+                            <span>Clear Answer</span>
+                        </button>
+                    </div>
+
+                    <div class="flex items-center gap-2 ml-auto">
+                        <button id="next-btn" type="button" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-blue-500/20 flex items-center gap-2">
+                            <span>Next</span>
+                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        </button>
+
+                        <button id="submit-quiz-btn" type="button" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-emerald-600/20 flex items-center gap-2">
+                            <i class="fa-solid fa-paper-plane text-xs"></i>
+                            <span>Submit Quiz</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Question Palette Sidebar (Right - 1 column) -->
+            <div class="lg:col-span-1 space-y-4">
+                <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 sm:p-5 sticky top-20 space-y-4">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-3">
+                        <h3 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+                            <i class="fa-solid fa-border-all text-blue-600"></i>
+                            Question Palette
+                        </h3>
+                        <span id="answered-count-badge" class="text-xs bg-slate-100 font-semibold text-slate-600 px-2 py-0.5 rounded-full">
+                            0/20
+                        </span>
+                    </div>
+
+                    <!-- Question Number Grid -->
+                    <div id="palette-grid" class="grid grid-cols-5 gap-2 max-h-60 lg:max-h-none overflow-y-auto custom-scrollbar p-0.5">
+                        <!-- Rendered by JS -->
+                    </div>
+
+                    <!-- Legend -->
+                    <div class="pt-3 border-t border-slate-100 grid grid-cols-2 gap-2 text-[11px] text-slate-600 font-medium">
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-emerald-500 border border-emerald-600 inline-block"></span>
+                            <span>Answered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-amber-400 border border-amber-500 inline-block"></span>
+                            <span>Unanswered</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-purple-500 border border-purple-600 inline-block"></span>
+                            <span>Flagged</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="w-3 h-3 rounded-md bg-slate-200 border border-slate-300 inline-block"></span>
+                            <span>Not Visited</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- ================= 3. FINAL RESULTS SCREEN ================= -->
+        <section id="results-screen" class="hidden space-y-8 max-w-4xl mx-auto">
+            
+            <!-- Summary Card -->
+            <div class="bg-white rounded-2xl shadow-xl border border-slate-200 p-6 sm:p-8 text-center space-y-6 relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-blue-600 via-indigo-500 to-purple-600"></div>
+
+                <div class="space-y-1 pt-2">
+                    <span class="text-xs font-extrabold tracking-widest text-blue-600 uppercase">Assessment Complete</span>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Your Performance Summary</h2>
+                </div>
+
+                <!-- Metrics Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3.5 max-w-3xl mx-auto">
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Total Score</span>
+                        <div class="text-2xl sm:text-3xl font-black text-blue-600 mt-1">
+                            <span id="final-score">0</span> <span class="text-sm text-slate-400 font-normal">/ 20</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Percentage</span>
+                        <div id="final-percentage" class="text-2xl sm:text-3xl font-black text-slate-900 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Accuracy</span>
+                        <div id="final-accuracy" class="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+                            0%
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex flex-col items-center">
+                        <span class="text-xs text-slate-500 font-bold uppercase">Time Elapsed</span>
+                        <div id="final-time" class="text-xl sm:text-2xl font-black text-slate-800 mt-1.5 font-mono">
+                            00:00
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Category Counts -->
+                <div class="flex flex-wrap items-center justify-center gap-4 text-xs font-bold pt-1">
+                    <div class="flex items-center gap-1.5 text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Correct: <span id="count-correct">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-rose-700 bg-rose-50 px-3 py-1.5 rounded-lg border border-rose-200">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        <span>Incorrect: <span id="count-incorrect">0</span></span>
+                    </div>
+                    <div class="flex items-center gap-1.5 text-amber-800 bg-amber-50 px-3 py-1.5 rounded-lg border border-amber-200">
+                        <i class="fa-solid fa-circle-minus"></i>
+                        <span>Unattempted: <span id="count-unattempted">0</span></span>
+                    </div>
+                </div>
+
+                <!-- Remark Badge -->
+                <div id="remark-badge-container" class="pt-1">
+                    <span id="final-remark" class="inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-blue-100 text-blue-800 border border-blue-200">
+                        Grade: Remark
+                    </span>
+                </div>
+
+                <div class="flex justify-center gap-3 pt-2">
+                    <button id="restart-btn" type="button" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl shadow-lg shadow-blue-500/25 transition flex items-center gap-2 text-sm">
+                        <i class="fa-solid fa-rotate-right"></i>
+                        <span>Retake Quiz</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Review & Solutions Section -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-5 sm:p-8 space-y-6">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4">
+                    <div>
+                        <h3 class="text-lg font-extrabold text-slate-900">Question-by-Question Detailed Review</h3>
+                        <p class="text-xs text-slate-500">Examine your selected options alongside correct answers and step-by-step explanations.</p>
+                    </div>
+
+                    <!-- Filters -->
+                    <div class="flex flex-wrap gap-1 bg-slate-100 p-1 rounded-xl text-xs font-bold" id="review-filters">
+                        <button type="button" data-filter="all" class="filter-btn active px-3 py-1.5 rounded-lg bg-white text-slate-900 shadow-sm transition">All (20)</button>
+                        <button type="button" data-filter="correct" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Correct</button>
+                        <button type="button" data-filter="incorrect" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Incorrect</button>
+                        <button type="button" data-filter="unattempted" class="filter-btn px-3 py-1.5 rounded-lg text-slate-600 hover:text-slate-900 transition">Unattempted</button>
+                    </div>
+                </div>
+
+                <!-- Dynamic Review Cards Container -->
+                <div id="review-list" class="space-y-4">
+                    <!-- Rendered by JS -->
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ================= SUBMIT CONFIRMATION MODAL ================= -->
+    <div id="submit-modal" class="hidden fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl border border-slate-200 max-w-md w-full p-6 space-y-5">
+            <div class="flex items-center gap-3 text-amber-600">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-triangle-exclamation"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-extrabold text-slate-900">Confirm Submission</h3>
+                    <p class="text-xs text-slate-500">Check your attempt summary before submitting your test.</p>
+                </div>
+            </div>
+
+            <div id="modal-summary-text" class="text-sm text-slate-700 bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+                <!-- Injected dynamically -->
+            </div>
+
+            <div class="flex items-center justify-end gap-3 pt-2">
+                <button id="modal-cancel-btn" type="button" class="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold rounded-xl text-sm transition">
+                    Continue Quiz
+                </button>
+                <button id="modal-confirm-btn" type="button" class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl text-sm transition shadow-md shadow-blue-600/20">
+                    Yes, Submit Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500 mt-6">
+        <div class="max-w-6xl mx-auto px-4">
+            Class 12 Artificial Intelligence & Data Science • Data Visualization Techniques & Platforms
+        </div>
+    </footer>
+
+    <!-- ================= JAVASCRIPT ENGINE ================= -->
+    <script>
+        // -------------------------------------------------------------
+        // 20 CLASS 12 AI & DS DATA VISUALIZATION QUESTIONS DATASET
+        // -------------------------------------------------------------
+        const quizData = [
+            {
+                id: 1,
+                question: "What is the primary cognitive benefit of data visualization during Exploratory Data Analysis (EDA)?",
+                options: [
+                    "It replaces machine learning algorithms entirely.",
+                    "It maps abstract complex data into visual structures, leveraging human perceptual bandwidth to rapidly identify trends and outliers.",
+                    "It automatically cleans null values from SQL databases.",
+                    "It encrypts textual datasets into secure graphical passwords."
+                ],
+                correct: 1,
+                explanation: "Data visualization converts raw numerical and tabular data into visual encodings (color, shape, position). This leverages the human visual system to quickly process information, detect patterns, spot anomalies, and reduce cognitive load."
+            },
+            {
+                id: 2,
+                question: "Which of the following plots is most suitable for visualizing continuous time-series data to show trends over sequential time intervals?",
+                options: [
+                    "Bar Plot",
+                    "Line Plot",
+                    "Pie Chart",
+                    "Treemap"
+                ],
+                correct: 1,
+                explanation: "Line plots connect data points with straight line segments across a continuous quantitative or temporal scale (e.g., time), making them ideal for illustrating trends, changes, and rates of growth over time."
+            },
+            {
+                id: 3,
+                question: "When visualizing the empirical probability distribution and frequency of a single continuous variable, which chart divides data into sequential, non-overlapping bins?",
+                options: [
+                    "Histogram",
+                    "Bar Chart",
+                    "Scatter Plot",
+                    "Word Cloud"
+                ],
+                correct: 0,
+                explanation: "Histograms display the frequency distribution of a continuous quantitative variable by binning data into consecutive, non-overlapping intervals (bins) along the x-axis."
+            },
+            {
+                id: 4,
+                question: "In a standard Box Plot (Whisker Plot), what does the Interquartile Range (IQR) represent mathematically?",
+                options: [
+                    "\\(\\text{IQR} = Q_3 - Q_1\\), representing the central \\(50\\%\\) spread of data.",
+                    "\\(\\text{IQR} = Q_3 + Q_1\\), calculating total variance.",
+                    "\\(\\text{IQR} = \\text{Maximum} - \\text{Minimum}\\), covering the entire data range.",
+                    "\\(\\text{IQR} = 1.5 \\times \\text{Mean}\\)."
+                ],
+                correct: 0,
+                explanation: "The Interquartile Range (IQR) is the distance between the 75th percentile (third quartile \\(Q_3\\)) and the 25th percentile (first quartile \\(Q_1\\)): \\(\\text{IQR} = Q_3 - Q_1\\). Data points outside \\([Q_1 - 1.5 \\times \\text{IQR}, Q_3 + 1.5 \\times \\text{IQR}]\\) are flagged as outliers."
+            },
+            {
+                id: 5,
+                question: "Which 2D visualization technique displays relationships between two continuous variables \\(X\\) and \\(Y\\) using Cartesian coordinates?",
+                options: [
+                    "Scatter Plot",
+                    "Heatmap",
+                    "Bar Plot",
+                    "Treemap"
+                ],
+                correct: 0,
+                explanation: "Scatter plots map bivariate continuous data onto Cartesian axes \\((x_i, y_i)\\) to inspect correlation, linear/non-linear dependencies, and point clustering."
+            },
+            {
+                id: 6,
+                question: "How does a Bubble Plot extend a standard 2D Scatter Plot to represent a third quantitative variable?",
+                options: [
+                    "By animating points over time.",
+                    "By encoding the magnitude of the third variable into the area/radius of each plotted point marker.",
+                    "By converting Cartesian coordinates to polar coordinates.",
+                    "By connecting points with dashed directional vectors."
+                ],
+                correct: 1,
+                explanation: "A Bubble Plot enhances a 2D scatter plot \\((x, y)\\) by varying the size (area/radius) of the markers to encode a 3rd continuous variable \\(z\\)."
+            },
+            {
+                id: 7,
+                question: "Which data visualization technique uses nested rectangles to display hierarchical structure, where rectangle area corresponds to quantitative metric size?",
+                options: [
+                    "Geospatial Map",
+                    "Treemap",
+                    "Word Cloud",
+                    "Contour Plot"
+                ],
+                correct: 1,
+                explanation: "Treemaps display hierarchical (tree-structured) data as a set of nested rectangles. Each branch of the tree is given a rectangle, which is then tiled with smaller rectangles representing sub-branches."
+            },
+            {
+                id: 8,
+                question: "A Heatmap visualizes values within a 2D matrix by encoding numerical values into which visual property?",
+                options: [
+                    "Color intensity/hue gradients",
+                    "Font typeface variation",
+                    "3D height elevations only",
+                    "Grid line stroke weight"
+                ],
+                correct: 0,
+                explanation: "Heatmaps represent tabular matrix data where individual values are represented as colors across a spectrum or gradient (e.g., correlation matrices)."
+            },
+            {
+                id: 9,
+                question: "In text analytics, a Word Cloud visually represents textual frequency data by adjusting which visual feature of words?",
+                options: [
+                    "Alphabetical sorting position",
+                    "Font size proportional to term frequency or occurrence weight",
+                    "Background gradient angle",
+                    "Underline thickness"
+                ],
+                correct: 1,
+                explanation: "A Word Cloud (Tag Cloud) highlights the most frequent terms in a text corpus by making high-frequency terms appear in larger font sizes."
+            },
+            {
+                id: 10,
+                question: "Which mapping approach colors geographic regions (states, countries) according to a statistical data metric (e.g., population density)?",
+                options: [
+                    "Choropleth Map",
+                    "Contour Plot",
+                    "Topographic Heatmap",
+                    "Treemap"
+                ],
+                correct: 0,
+                explanation: "A Choropleth map is a geospatial map where areas are shaded or patterned in proportion to a data variable, such as population density or per-capita income."
+            },
+            {
+                id: 11,
+                question: "What is the primary purpose of constructing a Pairwise Scatter Plot Matrix (e.g., `sns.pairplot` in Seaborn) for a dataset with \\(p\\) numerical features?",
+                options: [
+                    "To generate 3D models for computer graphics rendering.",
+                    "To visualize all bivariate scatter plots across feature pairs in a \\(p \\times p\\) grid, with univariate distributions along the diagonal.",
+                    "To compress high-dimensional data into a single pie chart.",
+                    "To automatically drop missing records from a DataFrame."
+                ],
+                correct: 1,
+                explanation: "A pairwise scatter plot matrix renders a grid of scatter plots for every pair of continuous variables in a dataset. The diagonal typically displays univariate histograms or KDE plots."
+            },
+            {
+                id: 12,
+                question: "In a 3D Scatter Plot, how many continuous variable dimensions are plotted simultaneously across Cartesian space axes?",
+                options: [
+                    "2 dimensions \\((x, y)\\)",
+                    "3 dimensions \\((x, y, z)\\)",
+                    "4 dimensions \\((x, y, z, w)\\)",
+                    "1 dimension \\((x)\\)"
+                ],
+                correct: 1,
+                explanation: "A 3D scatter plot graphs data points in a 3-dimensional coordinate system defined by the \\(X\\), \\(Y\\), and \\(Z\\) axes."
+            },
+            {
+                id: 13,
+                question: "Which 3D plot connects a grid of continuous coordinates \\((x, y)\\) to their corresponding height values \\(z = f(x, y)\\) forming a 3D structural mesh?",
+                options: [
+                    "3D Surface Plot",
+                    "Word Cloud",
+                    "Categorical Bar Chart",
+                    "Box Plot"
+                ],
+                correct: 0,
+                explanation: "A 3D Surface plot displays a functional surface over a 2D mesh grid where height represents dependent variable \\(z = f(x, y)\\)."
+            },
+            {
+                id: 14,
+                question: "What does a 2D Contour Plot represent geometrically?",
+                options: [
+                    "A sequence of bar charts placed side-by-side.",
+                    "2D level curves defined by \\(f(x, y) = c\\), projecting slices of a 3D surface onto a 2D plane.",
+                    "A geographic map of country borders without data.",
+                    "A log-scale histogram of categorical variables."
+                ],
+                correct: 1,
+                explanation: "Contour plots visualize a 3D surface on a 2D plane by drawing level curves (contour lines) connecting points of equal value: \\(f(x, y) = c\\)."
+            },
+            {
+                id: 15,
+                question: "On a weather contour map showing atmospheric pressure (isobars), what do closely spaced contour lines indicate?",
+                options: [
+                    "Zero pressure gradient",
+                    "A steep spatial rate of change (high gradient)",
+                    "Constant uniform temperature",
+                    "Missing sensor data"
+                ],
+                correct: 1,
+                explanation: "In contour plots, closely spaced contour lines represent a rapid change (steep gradient) in the dependent variable over space."
+            },
+            {
+                id: 16,
+                question: "Which enterprise Business Intelligence platform is known for drag-and-drop dashboard creation, workbook files (.twbx), and interactive storytelling?",
+                options: [
+                    "Tableau",
+                    "GCC Compiler",
+                    "Apache Hadoop HDFS",
+                    "PostgreSQL Core Engine"
+                ],
+                correct: 0,
+                explanation: "Tableau is a popular data visualization and BI tool that enables drag-and-drop analytics, visual dashboard creation, and data storytelling."
+            },
+            {
+                id: 17,
+                question: "What is Google Charts primarily used for in web development?",
+                options: [
+                    "Embedding interactive JavaScript-based charts and vector graphs into web pages dynamically.",
+                    "Designing 3D video games in C++.",
+                    "Training deep convolutional neural networks.",
+                    "Operating hardware router firmware."
+                ],
+                correct: 0,
+                explanation: "Google Charts provides a pure JavaScript vector chart library (rendering via SVG/HTML5 Canvas) to render interactive graphs directly inside web browsers."
+            },
+            {
+                id: 18,
+                question: "In Tableau, what is the fundamental distinction between 'Dimensions' and 'Measures'?",
+                options: [
+                    "Dimensions are categorical/qualitative headers; Measures are numerical/quantitative values that can be aggregated.",
+                    "Dimensions are always colors; Measures are always fonts.",
+                    "Dimensions are saved in SQL; Measures are saved in CSV files.",
+                    "Dimensions represent 3D plots; Measures represent 2D plots."
+                ],
+                correct: 0,
+                explanation: "In Tableau, Dimensions contain qualitative/categorical values (e.g., dates, regions), while Measures contain quantitative numerical values that can be aggregated (e.g., sum, average of sales)."
+            },
+            {
+                id: 19,
+                question: "To visualize correlation coefficients between all numerical features in a Pandas DataFrame using Seaborn, which chart type is standard?",
+                options: [
+                    "Heatmap of the correlation matrix (`sns.heatmap(df.corr())`)",
+                    "Single Line Plot",
+                    "Geospatial Choropleth",
+                    "Word Cloud"
+                ],
+                correct: 0,
+                explanation: "Calculating a correlation matrix via `df.corr()` and displaying it with `sns.heatmap()` provides a clear, color-coded grid of pairwise correlation coefficients."
+            },
+            {
+                id: 20,
+                question: "Which of the following best describes the main objective of using 3D visualization techniques over 2D plots?",
+                options: [
+                    "3D plots are always easier to interpret than 2D plots regardless of viewpoint.",
+                    "3D plots allow simultaneous analysis of complex relationships across 3 continuous variables, though camera rotation/viewing angle is critical to avoid occlusions.",
+                    "3D plots eliminate the need for mathematical axes.",
+                    "3D plots reduce image file sizes."
+                ],
+                correct: 1,
+                explanation: "3D visualization enables the display of trivariate relationships \\((x, y, z)\\), but requires proper perspective angles, rotation, or interactivity to prevent visual occlusion."
+            }
+        ];
+
+        // STATE VARIABLES
+        let currentQuestionIndex = 0;
+        let userAnswers = new Array(quizData.length).fill(null);
+        let visitedQuestions = new Array(quizData.length).fill(false);
+        let flaggedQuestions = new Array(quizData.length).fill(false);
+        let quizMode = 'exam'; // 'exam' or 'instant'
+        let timerSeconds = 0;
+        let timerTimeLimitSeconds = 0; // 0 means no limit
+        let timerInterval = null;
+
+        // DOM ELEMENTS
+        let startScreen, quizScreen, resultsScreen, submitModal;
+        let startBtn, prevBtn, nextBtn, clearBtn, flagBtn, submitQuizBtn, restartBtn;
+        let flagIcon, flagText, questionBadge, questionText, optionsContainer;
+        let progressText, qProgressCount, qProgressPercent, progressBarFill;
+        let paletteGrid, answeredCountBadge, explanationBox, feedbackTitle, feedbackExplanation;
+        let timerDisplay, headerStats, modalSummaryText, modalCancelBtn, modalConfirmBtn;
+        let reviewList;
+
+        // Helper function to safely invoke MathJax typeset
+        function triggerMathRender() {
+            if (window.MathJax && window.MathJax.typesetPromise) {
+                window.MathJax.typesetPromise().catch((err) => console.error("MathJax error: ", err));
+            }
+        }
+
+        // INITIALIZATION ON DOM READY
+        document.addEventListener('DOMContentLoaded', () => {
+            // Bind DOM Elements
+            startScreen = document.getElementById('start-screen');
+            quizScreen = document.getElementById('quiz-screen');
+            resultsScreen = document.getElementById('results-screen');
+            submitModal = document.getElementById('submit-modal');
+
+            startBtn = document.getElementById('start-btn');
+            prevBtn = document.getElementById('prev-btn');
+            nextBtn = document.getElementById('next-btn');
+            clearBtn = document.getElementById('clear-btn');
+            flagBtn = document.getElementById('flag-btn');
+            submitQuizBtn = document.getElementById('submit-quiz-btn');
+            restartBtn = document.getElementById('restart-btn');
+
+            flagIcon = document.getElementById('flag-icon');
+            flagText = document.getElementById('flag-text');
+            questionBadge = document.getElementById('question-number-badge');
+            questionText = document.getElementById('question-text');
+            optionsContainer = document.getElementById('options-container');
+
+            progressText = document.getElementById('progress-text');
+            qProgressCount = document.getElementById('q-progress-count');
+            qProgressPercent = document.getElementById('q-progress-percent');
+            progressBarFill = document.getElementById('progress-bar-fill');
+
+            paletteGrid = document.getElementById('palette-grid');
+            answeredCountBadge = document.getElementById('answered-count-badge');
+            explanationBox = document.getElementById('explanation-box');
+            feedbackTitle = document.getElementById('feedback-title');
+            feedbackExplanation = document.getElementById('feedback-explanation');
+
+            timerDisplay = document.getElementById('timer-display');
+            headerStats = document.getElementById('header-stats');
+            modalSummaryText = document.getElementById('modal-summary-text');
+            modalCancelBtn = document.getElementById('modal-cancel-btn');
+            modalConfirmBtn = document.getElementById('modal-confirm-btn');
+
+            reviewList = document.getElementById('review-list');
+
+            // Attach Event Listeners
+            startBtn.addEventListener('click', startQuiz);
+            prevBtn.addEventListener('click', goToPreviousQuestion);
+            nextBtn.addEventListener('click', goToNextQuestion);
+            clearBtn.addEventListener('click', clearCurrentAnswer);
+            flagBtn.addEventListener('click', toggleFlagCurrentQuestion);
+            submitQuizBtn.addEventListener('click', openSubmitConfirmationModal);
+            modalCancelBtn.addEventListener('click', closeSubmitConfirmationModal);
+            modalConfirmBtn.addEventListener('click', finalizeAndSubmitQuiz);
+            restartBtn.addEventListener('click', resetQuizState);
+
+            // Filter buttons listener
+            const filterContainer = document.getElementById('review-filters');
+            if (filterContainer) {
+                filterContainer.addEventListener('click', (e) => {
+                    const btn = e.target.closest('.filter-btn');
+                    if (!btn) return;
+                    
+                    filterContainer.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                        b.classList.add('text-slate-600');
+                    });
+
+                    btn.classList.add('active', 'bg-white', 'text-slate-900', 'shadow-sm');
+                    btn.classList.remove('text-slate-600');
+
+                    renderReviewList(btn.dataset.filter);
+                });
+            }
+
+            // Mode selector styling updates
+            const modeRadios = document.querySelectorAll('input[name="quiz-mode"]');
+            modeRadios.forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    quizMode = e.target.value;
+                    const examLabel = document.getElementById('mode-exam-label');
+                    const instantLabel = document.getElementById('mode-instant-label');
+
+                    if (quizMode === 'exam') {
+                        examLabel.className = "cursor-pointer border-2 border-blue-500 bg-blue-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-blue-600";
+                        instantLabel.className = "cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-blue-300";
+                    } else {
+                        instantLabel.className = "cursor-pointer border-2 border-blue-500 bg-blue-50/50 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-blue-600";
+                        examLabel.className = "cursor-pointer border-2 border-slate-200 p-3.5 rounded-xl flex items-start gap-3 transition hover:border-blue-300";
+                    }
+                });
+            });
+
+            // Initial math render pass
+            triggerMathRender();
+        });
+
+        // CORE QUIZ CONTROLLER FUNCTIONS
+        function startQuiz() {
+            // Read selected timer option
+            const timerSelected = document.querySelector('input[name="timer-option"]:checked').value;
+            if (timerSelected === 'none') {
+                timerTimeLimitSeconds = 0;
+            } else {
+                timerTimeLimitSeconds = parseInt(timerSelected, 10) * 60;
+            }
+
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            headerStats.classList.remove('hidden');
+
+            timerSeconds = 0;
+            startTimer();
+
+            buildPaletteGrid();
+            renderQuestion(0);
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            timerInterval = setInterval(() => {
+                timerSeconds++;
+
+                if (timerTimeLimitSeconds > 0) {
+                    const remaining = timerTimeLimitSeconds - timerSeconds;
+                    if (remaining <= 0) {
+                        clearInterval(timerInterval);
+                        timerDisplay.textContent = "00:00";
+                        alert("Time limit reached! Submitting your quiz now.");
+                        finalizeAndSubmitQuiz();
+                        return;
+                    }
+                    const mins = Math.floor(remaining / 60);
+                    const secs = remaining % 60;
+                    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                } else {
+                    const mins = Math.floor(timerSeconds / 60);
+                    const secs = timerSeconds % 60;
+                    timerDisplay.textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+                }
+            }, 1000);
+        }
+
+        function buildPaletteGrid() {
+            paletteGrid.innerHTML = '';
+            quizData.forEach((_, idx) => {
+                const btn = document.createElement('button');
+                btn.id = `palette-btn-${idx}`;
+                btn.type = "button";
+                btn.textContent = idx + 1;
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center bg-slate-100 text-slate-700 border-slate-200 hover:border-blue-400";
+                
+                btn.addEventListener('click', () => {
+                    renderQuestion(idx);
+                });
+
+                paletteGrid.appendChild(btn);
+            });
+        }
+
+        function renderQuestion(index) {
+            currentQuestionIndex = index;
+            visitedQuestions[index] = true;
+
+            const qData = quizData[index];
+
+            progressText.textContent = `${index + 1}/20`;
+            qProgressCount.textContent = `Question ${index + 1} of 20`;
+            const pct = Math.round(((index + 1) / quizData.length) * 100);
+            qProgressPercent.textContent = `${pct}% Completed`;
+            progressBarFill.style.width = `${pct}%`;
+
+            questionBadge.textContent = `Q${index + 1}`;
+            questionText.textContent = qData.question;
+
+            // Update Flag button styling
+            if (flaggedQuestions[index]) {
+                flagBtn.className = "shrink-0 text-purple-700 bg-purple-100 hover:bg-purple-200 p-2.5 rounded-xl border border-purple-300 transition text-xs flex items-center gap-1.5 font-bold";
+                flagIcon.className = "fa-solid fa-bookmark text-sm";
+                flagText.textContent = "Flagged";
+            } else {
+                flagBtn.className = "shrink-0 text-slate-500 hover:text-purple-600 bg-slate-50 hover:bg-purple-50 p-2.5 rounded-xl border border-slate-200 transition text-xs flex items-center gap-1.5 font-medium";
+                flagIcon.className = "fa-regular fa-bookmark text-sm";
+                flagText.textContent = "Mark";
+            }
+
+            optionsContainer.innerHTML = '';
+            const userSelected = userAnswers[index];
+
+            qData.options.forEach((optText, optIdx) => {
+                const optBtn = document.createElement('button');
+                optBtn.type = "button";
+                optBtn.className = "w-full text-left p-3.5 sm:p-4 rounded-xl border text-sm sm:text-base font-medium transition-all duration-150 flex items-start gap-3 group relative ";
+
+                const labelLetter = String.fromCharCode(65 + optIdx);
+
+                let borderStyle = "border-slate-200 bg-white hover:border-blue-300 hover:bg-slate-50 text-slate-800";
+                let badgeStyle = "bg-slate-100 text-slate-600 group-hover:bg-blue-100 group-hover:text-blue-700";
+
+                if (userSelected !== null) {
+                    if (quizMode === 'instant') {
+                        if (optIdx === qData.correct) {
+                            borderStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-bold";
+                            badgeStyle = "bg-emerald-500 text-white";
+                        } else if (optIdx === userSelected) {
+                            borderStyle = "border-rose-500 bg-rose-50 text-rose-900 font-bold";
+                            badgeStyle = "bg-rose-500 text-white";
+                        } else {
+                            borderStyle = "border-slate-200 bg-white opacity-50 text-slate-500";
+                        }
+                    } else {
+                        if (optIdx === userSelected) {
+                            borderStyle = "border-blue-600 bg-blue-50 text-blue-950 font-bold ring-1 ring-blue-600";
+                            badgeStyle = "bg-blue-600 text-white";
+                        }
+                    }
+                }
+
+                optBtn.className += borderStyle;
+
+                optBtn.innerHTML = `
+                    <span class="w-6 h-6 rounded-lg text-xs font-bold flex items-center justify-center shrink-0 transition ${badgeStyle}">
+                        ${labelLetter}
+                    </span>
+                    <span class="flex-grow pt-0.5 leading-snug">${optText}</span>
+                `;
+
+                optBtn.addEventListener('click', () => {
+                    selectOption(index, optIdx);
+                });
+
+                optionsContainer.appendChild(optBtn);
+            });
+
+            // Instant Practice Mode Feedback Box
+            if (quizMode === 'instant' && userSelected !== null) {
+                explanationBox.classList.remove('hidden');
+                if (userSelected === qData.correct) {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-emerald-50 border-emerald-200 text-emerald-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-600"></i> Correct Visualization Concept!`;
+                } else {
+                    explanationBox.className = "rounded-xl p-4 border text-sm space-y-1 bg-rose-50 border-rose-200 text-rose-900";
+                    feedbackTitle.innerHTML = `<i class="fa-solid fa-circle-xmark text-rose-600"></i> Incorrect Choice`;
+                }
+                feedbackExplanation.textContent = qData.explanation;
+            } else {
+                explanationBox.classList.add('hidden');
+            }
+
+            prevBtn.disabled = index === 0;
+
+            if (index === quizData.length - 1) {
+                nextBtn.classList.add('hidden');
+            } else {
+                nextBtn.classList.remove('hidden');
+            }
+
+            updatePaletteGrid();
+            triggerMathRender();
+        }
+
+        function updatePaletteGrid() {
+            const answeredCount = userAnswers.filter(ans => ans !== null).length;
+            answeredCountBadge.textContent = `${answeredCount}/20`;
+
+            quizData.forEach((_, idx) => {
+                const btn = document.getElementById(`palette-btn-${idx}`);
+                if (!btn) return;
+
+                const isCurrent = idx === currentQuestionIndex;
+                const isAnswered = userAnswers[idx] !== null;
+                const isVisited = visitedQuestions[idx];
+                const isFlagged = flaggedQuestions[idx];
+
+                btn.className = "h-9 w-full rounded-lg font-bold text-xs transition border flex items-center justify-center relative ";
+
+                if (isCurrent) {
+                    btn.classList.add('ring-2', 'ring-blue-600', 'ring-offset-2');
+                }
+
+                if (isFlagged) {
+                    btn.classList.add('bg-purple-500', 'text-white', 'border-purple-600');
+                } else if (isAnswered) {
+                    btn.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                } else if (isVisited) {
+                    btn.classList.add('bg-amber-400', 'text-amber-950', 'border-amber-500');
+                } else {
+                    btn.classList.add('bg-slate-200', 'text-slate-700', 'border-slate-300', 'hover:bg-slate-300');
+                }
+            });
+        }
+
+        function selectOption(qIdx, optionIdx) {
+            userAnswers[qIdx] = optionIdx;
+            renderQuestion(qIdx);
+        }
+
+        function clearCurrentAnswer() {
+            userAnswers[currentQuestionIndex] = null;
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function toggleFlagCurrentQuestion() {
+            flaggedQuestions[currentQuestionIndex] = !flaggedQuestions[currentQuestionIndex];
+            renderQuestion(currentQuestionIndex);
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIndex < quizData.length - 1) {
+                renderQuestion(currentQuestionIndex + 1);
+            }
+        }
+
+        function goToPreviousQuestion() {
+            if (currentQuestionIndex > 0) {
+                renderQuestion(currentQuestionIndex - 1);
+            }
+        }
+
+        // SUBMIT AND RESULTS LOGIC
+        function openSubmitConfirmationModal() {
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const unattemptedCount = quizData.length - answeredCount;
+            const flaggedCount = flaggedQuestions.filter(f => f).length;
+
+            let summaryHtml = `
+                <div class="flex justify-between items-center">
+                    <span>Total Questions:</span>
+                    <strong class="text-slate-900">20</strong>
+                </div>
+                <div class="flex justify-between items-center text-emerald-700">
+                    <span>Answered Questions:</span>
+                    <strong>${answeredCount}</strong>
+                </div>
+                <div class="flex justify-between items-center text-amber-700">
+                    <span>Unattempted Questions:</span>
+                    <strong>${unattemptedCount}</strong>
+                </div>
+            `;
+
+            if (flaggedCount > 0) {
+                summaryHtml += `
+                    <div class="flex justify-between items-center text-purple-700 pt-1 border-t border-slate-200">
+                        <span>Flagged for Review:</span>
+                        <strong>${flaggedCount}</strong>
+                    </div>
+                `;
+            }
+
+            if (unattemptedCount > 0) {
+                summaryHtml += `
+                    <p class="text-xs text-amber-600 font-semibold pt-2 border-t border-slate-200">
+                        ⚠️ You have ${unattemptedCount} unattempted question(s). Are you sure you want to submit?
+                    </p>
+                `;
+            } else {
+                summaryHtml += `
+                    <p class="text-xs text-emerald-600 font-semibold pt-2 border-t border-slate-200">
+                        🎉 Great job! You have answered all 20 questions.
+                    </p>
+                `;
+            }
+
+            modalSummaryText.innerHTML = summaryHtml;
+            submitModal.classList.remove('hidden');
+        }
+
+        function closeSubmitConfirmationModal() {
+            submitModal.classList.add('hidden');
+        }
+
+        function finalizeAndSubmitQuiz() {
+            clearInterval(timerInterval);
+            closeSubmitConfirmationModal();
+
+            quizScreen.classList.add('hidden');
+            resultsScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            let correctCount = 0;
+            let incorrectCount = 0;
+            let unattemptedCount = 0;
+
+            userAnswers.forEach((ans, idx) => {
+                if (ans === null) {
+                    unattemptedCount++;
+                } else if (ans === quizData[idx].correct) {
+                    correctCount++;
+                } else {
+                    incorrectCount++;
+                }
+            });
+
+            const totalScore = correctCount;
+            const percentage = Math.round((correctCount / quizData.length) * 100);
+            const attemptedCount = correctCount + incorrectCount;
+            const accuracy = attemptedCount > 0 ? Math.round((correctCount / attemptedCount) * 100) : 0;
+
+            document.getElementById('final-score').textContent = totalScore;
+            document.getElementById('final-percentage').textContent = `${percentage}%`;
+            document.getElementById('final-accuracy').textContent = `${accuracy}%`;
+
+            const mins = Math.floor(timerSeconds / 60);
+            const secs = timerSeconds % 60;
+            document.getElementById('final-time').textContent = `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+
+            document.getElementById('count-correct').textContent = correctCount;
+            document.getElementById('count-incorrect').textContent = incorrectCount;
+            document.getElementById('count-unattempted').textContent = unattemptedCount;
+
+            const remarkEl = document.getElementById('final-remark');
+            if (percentage >= 90) {
+                remarkEl.textContent = "Grade A+: Visualization Expert! Excellent Chart & Platform Command 🏆";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 75) {
+                remarkEl.textContent = "Grade A: Strong Command of Data Plots & BI Tools! 🌟";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-emerald-100 text-emerald-800 border border-emerald-300";
+            } else if (percentage >= 50) {
+                remarkEl.textContent = "Grade B: Good Effort! Practice 3D Plots, Boxplots & Tableau Concepts 👍";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-amber-100 text-amber-800 border border-amber-300";
+            } else {
+                remarkEl.textContent = "Needs Revision of Plot Types & Visualization Tools! 📖";
+                remarkEl.className = "inline-block px-4 py-1.5 rounded-full text-sm font-extrabold bg-rose-100 text-rose-800 border border-rose-300";
+            }
+
+            renderReviewList('all');
+        }
+
+        function renderReviewList(filter = 'all') {
+            reviewList.innerHTML = '';
+
+            quizData.forEach((q, idx) => {
+                const userAns = userAnswers[idx];
+                const isCorrect = userAns === q.correct;
+                const isUnattempted = userAns === null;
+
+                if (filter === 'correct' && !isCorrect) return;
+                if (filter === 'incorrect' && (isCorrect || isUnattempted)) return;
+                if (filter === 'unattempted' && !isUnattempted) return;
+
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 border border-slate-200/90 rounded-xl p-4 sm:p-5 space-y-3";
+
+                let statusBadge = '';
+                if (isUnattempted) {
+                    statusBadge = `<span class="bg-amber-100 text-amber-800 border border-amber-200 text-xs font-bold px-2.5 py-1 rounded-md">Unattempted</span>`;
+                } else if (isCorrect) {
+                    statusBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-check"></i> Correct</span>`;
+                } else {
+                    statusBadge = `<span class="bg-rose-100 text-rose-800 border border-rose-200 text-xs font-bold px-2.5 py-1 rounded-md flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Incorrect</span>`;
+                }
+
+                let optionsHtml = '';
+                q.options.forEach((optText, optIdx) => {
+                    const letter = String.fromCharCode(65 + optIdx);
+                    let optStyle = "text-slate-600 border-slate-200 bg-white";
+
+                    if (optIdx === q.correct) {
+                        optStyle = "text-emerald-950 border-emerald-300 bg-emerald-50/80 font-bold";
+                    } else if (optIdx === userAns && !isCorrect) {
+                        optStyle = "text-rose-950 border-rose-300 bg-rose-50/80 font-bold";
+                    }
+
+                    optionsHtml += `
+                        <div class="p-2.5 rounded-lg border text-xs sm:text-sm flex items-start gap-2.5 ${optStyle}">
+                            <span class="font-bold shrink-0">${letter}.</span>
+                            <span class="flex-grow">${optText}</span>
+                            ${optIdx === q.correct ? '<i class="fa-solid fa-circle-check text-emerald-600 shrink-0 my-auto text-sm" title="Correct Option"></i>' : ''}
+                            ${(optIdx === userAns && !isCorrect) ? '<i class="fa-solid fa-circle-xmark text-rose-600 shrink-0 my-auto text-sm" title="Your Choice"></i>' : ''}
+                        </div>
+                    `;
+                });
+
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div class="flex items-start gap-2.5">
+                            <span class="bg-slate-200 text-slate-800 font-bold text-xs px-2 py-0.5 rounded mt-0.5">Q${idx + 1}</span>
+                            <h4 class="font-bold text-sm sm:text-base text-slate-900 leading-snug">${q.question}</h4>
+                        </div>
+                        <div class="shrink-0">${statusBadge}</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-1">
+                        ${optionsHtml}
+                    </div>
+
+                    <div class="bg-white p-3.5 rounded-lg border border-slate-200 text-xs text-slate-700 space-y-1">
+                        <div class="font-bold text-slate-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb text-amber-500"></i>
+                            <span>Concept Explanation & Key Insight:</span>
+                        </div>
+                        <p class="leading-relaxed text-slate-600">${q.explanation}</p>
+                    </div>
+                `;
+
+                reviewList.appendChild(card);
+            });
+
+            if (reviewList.children.length === 0) {
+                reviewList.innerHTML = `
+                    <div class="text-center py-8 text-slate-500 text-sm">
+                        No questions found matching the selected review filter.
+                    </div>
+                `;
+            }
+
+            triggerMathRender();
+        }
+
+        function resetQuizState() {
+            currentQuestionIndex = 0;
+            userAnswers = new Array(quizData.length).fill(null);
+            visitedQuestions = new Array(quizData.length).fill(false);
+            flaggedQuestions = new Array(quizData.length).fill(false);
+
+            resultsScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            headerStats.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
